@@ -1,0 +1,3622 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>風險領航家：家庭風險抗壓與 AI 保單健檢沙盤 (8大案例旗艦版) | TonyStudio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@600;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #070b14; color: #f8fafc; overflow-x: hidden; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gold-border {
+      background: linear-gradient(135deg, rgba(245,158,11,0.14), rgba(16,185,129,0.10));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 10px;
+      border-radius: 999px;
+      background: #1e293b;
+      border: 1px solid #334155;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #f59e0b;
+      border: 2px solid #ffffff;
+      margin-top: -7px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+    }
+    .pulse-dot {
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+    @keyframes urgent-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); border-color: rgba(244, 63, 94, 0.4); }
+      50% { box-shadow: 0 0 35px 4px rgba(244, 63, 94, 0.45); border-color: rgba(244, 63, 94, 1); }
+    }
+    .timer-urgent {
+      animation: urgent-glow 0.8s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+  <!-- ==================== 會員登入與註冊閘門 (Auth Gate) ==================== -->
+  <div id="authGateWrapper" class="min-h-screen flex flex-col justify-between bg-[#070b14] relative overflow-hidden">
+    <!-- 背景光暈裝飾 -->
+    <div class="pointer-events-none fixed inset-0 overflow-hidden z-0">
+      <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl"></div>
+      <div class="absolute top-1/3 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
+    </div>
+
+    <!-- 頂部品牌導覽 -->
+    <div class="relative z-10 border-b border-slate-800/80 glass-card px-6 py-4">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <img src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1785039560457_1.png?alt=media&token=19b27497-4101-4436-bc80-b299741b7984" alt="TonyStudio Logo" class="w-11 h-11 rounded-xl object-contain bg-slate-900/90 p-1 border border-amber-500/40 shadow-lg shadow-amber-500/10" onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=TS'">
+          <div>
+            <span class="text-[11px] font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">Firebase 全端 SaaS 實戰系統・Project: game15-risk-and-insurance</span>
+            <h1 class="text-lg md:text-xl font-black text-white mt-0.5">風險領航家：家庭風險抗壓與 AI 保單健檢決策沙盤 (8大案例旗艦版)</h1>
+          </div>
+        </div>
+        <div class="text-xs text-slate-400 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
+          <span>企業級雙重信箱驗證 (Double Opt-in) 與 RBAC 權限防護已啟用</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 登入/註冊與 TONY 顧問簡介主內容 -->
+    <div class="relative z-10 flex-1 max-w-7xl w-full mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- 左側：登入 / 註冊 / 忘記密碼 表單區 (佔 5 欄) -->
+      <div class="lg:col-span-5 glass-card rounded-3xl p-6 md:p-8 border border-amber-500/30 shadow-2xl space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div>
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Member Access Gate</span>
+            <h2 class="text-2xl font-black text-white mt-0.5">會員專屬通行證</h2>
+          </div>
+          <!-- 切換 탭 -->
+          <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+            <button type="button" id="authTabLogin" onclick="window.app.switchAuthTab('login')" class="px-3.5 py-1.5 rounded-lg bg-amber-500 text-slate-950 shadow transition">登入系統</button>
+            <button type="button" id="authTabRegister" onclick="window.app.switchAuthTab('register')" class="px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition">註冊帳號</button>
+          </div>
+        </div>
+
+        <!-- 動態訊息提示框 (綠字成功 / 紅字警告) -->
+        <div id="authAlertBox" class="hidden p-4 rounded-2xl text-xs md:text-sm font-bold leading-relaxed border"></div>
+
+        <!-- 溫馨提醒：垃圾郵件匣提示 (首次註冊與忘記密碼時特別醒目顯示) -->
+        <div id="spamReminderBanner" class="p-3.5 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-start gap-3">
+          <span class="text-xl shrink-0">📬</span>
+          <div class="text-xs text-amber-200 leading-relaxed">
+            <strong class="text-amber-300">溫馨提醒：</strong>註冊確認信或密碼重設信有時會跑到<strong>「垃圾郵件匣（Spam / 促銷內容）」</strong>，發送後請記得前往垃圾郵件匣確認並點擊驗證連結唷！
+          </div>
+        </div>
+
+        <!-- 1. 登入表單 -->
+        <form id="loginForm" onsubmit="window.app.handleEmailLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">電子郵件 (Email)</label>
+            <input id="loginEmail" type="email" required placeholder="請輸入您的註冊信箱" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:border-amber-500 focus:outline-none">
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="text-xs font-bold text-slate-300">登入密碼</label>
+              <button type="button" onclick="window.app.switchAuthTab('reset')" class="text-xs text-amber-400 hover:text-amber-300 font-semibold transition">忘記密碼？</button>
+            </div>
+            <div class="relative">
+              <input id="loginPassword" type="password" required placeholder="請輸入密碼" class="w-full pl-4 pr-11 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:border-amber-500 focus:outline-none">
+              <button type="button" onclick="window.app.togglePasswordVisibility('loginPassword', 'eyeIconLogin')" class="absolute inset-y-0 right-0 px-3.5 flex items-center text-slate-400 hover:text-amber-400 transition" title="顯示/隱藏密碼">
+                <svg id="eyeIconLogin" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button id="btnLoginSubmit" type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-emerald-600 hover:from-amber-400 hover:to-emerald-500 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/20 transition">
+            🚀 立即驗證登入沙盤
+          </button>
+        </form>
+
+        <!-- 2. 註冊表單 -->
+        <form id="registerForm" onsubmit="window.app.handleEmailRegister(event)" class="hidden space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">真實姓名 (Real Name) <span class="text-rose-400">*</span></label>
+            <input id="regRealName" type="text" required placeholder="例如：王大明（將顯示於證書與報表）" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:border-amber-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">參訓身分選擇 <span class="text-rose-400">*</span></label>
+            <div class="grid grid-cols-2 gap-2.5">
+              <label class="cursor-pointer">
+                <input type="radio" name="regIdentity" value="TONY老師學員" checked class="peer sr-only">
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-700 peer-checked:border-amber-500 peer-checked:bg-amber-500/20 text-center text-xs font-bold text-slate-300 peer-checked:text-amber-300 transition">
+                  🎓 TONY老師學員
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="regIdentity" value="非學員(一般訪客)" class="peer sr-only">
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-700 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/20 text-center text-xs font-bold text-slate-300 peer-checked:text-emerald-300 transition">
+                  🌟 非學員(一般訪客)
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">電子郵件 (Email) <span class="text-rose-400">*</span></label>
+            <input id="regEmail" type="email" required placeholder="請輸入可收取驗證信之真實 Email" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:border-amber-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">設定密碼 (至少 6 位字元) <span class="text-rose-400">*</span></label>
+            <div class="relative">
+              <input id="regPassword" type="password" required minlength="6" placeholder="請設定 6 位數以上密碼" class="w-full pl-4 pr-11 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:border-amber-500 focus:outline-none">
+              <button type="button" onclick="window.app.togglePasswordVisibility('regPassword', 'eyeIconReg')" class="absolute inset-y-0 right-0 px-3.5 flex items-center text-slate-400 hover:text-amber-400 transition" title="顯示/隱藏密碼">
+                <svg id="eyeIconReg" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button id="btnRegSubmit" type="submit" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/25 transition">
+            ✉️ 註冊並發送驗證信 (Double Opt-in)
+          </button>
+        </form>
+
+        <!-- 3. 忘記密碼表單 -->
+        <form id="resetForm" onsubmit="window.app.handleForgotPassword(event)" class="hidden space-y-4">
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300 leading-relaxed">
+            請輸入您註冊時使用的電子郵件，系統將寄送密碼重設連結至您的信箱（若未收到請務必檢查<strong>垃圾郵件匣</strong>）。
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">註冊之電子郵件 (Email)</label>
+            <input id="resetEmail" type="email" required placeholder="請輸入您的 Email" class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white text-sm focus:border-amber-500 focus:outline-none">
+          </div>
+          <div class="flex gap-2">
+            <button type="button" onclick="window.app.switchAuthTab('login')" class="w-1/3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">返回登入</button>
+            <button id="btnResetSubmit" type="submit" class="w-2/3 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow-lg transition">發送密碼重設信</button>
+          </div>
+        </form>
+
+        <!-- Google 帳號快速登入分隔線 -->
+        <div class="relative flex py-1 items-center">
+          <div class="flex-grow border-t border-slate-800"></div>
+          <span class="flex-shrink mx-3 text-xs text-slate-500">或使用多元快速登入</span>
+          <div class="flex-grow border-t border-slate-800"></div>
+        </div>
+
+        <!-- Google 登入設定與按鈕 -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>首次使用 Google 登入之預設身分：</span>
+            <select id="googleIdentitySelect" class="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-xs text-amber-300 font-bold focus:outline-none">
+              <option value="TONY老師學員">🎓 TONY老師學員</option>
+              <option value="非學員(一般訪客)">🌟 非學員(一般訪客)</option>
+            </select>
+          </div>
+          <button type="button" onclick="window.app.handleGoogleLogin()" class="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-black text-sm shadow-lg flex items-center justify-center gap-3 transition">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+              <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+              <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"/>
+              <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.9z"/>
+              <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.4 7.4 24 12 24z"/>
+            </svg>
+            <span>使用 Google 帳號一鍵安全登入</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 右側：平台創作者 TONY 楊文澤顧問簡介 (佔 7 欄) -->
+      <div class="lg:col-span-7 gold-border rounded-3xl p-6 md:p-8 shadow-2xl space-y-6">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-amber-500/20 pb-6">
+          <img src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1787580326393_ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%20%E4%B8%8A%E5%8D%8811_16_14.png?alt=media&token=3c85de41-f36f-46e5-a97a-7bc7eb83a027" alt="TONY 楊文澤 老師" class="w-28 h-28 md:w-32 md:h-32 rounded-2xl object-cover border-2 border-amber-400 shadow-xl shrink-0" onerror="this.src='https://placehold.co/200x200/0f172a/f59e0b?text=TONY'">
+          <div class="text-center sm:text-left space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold">
+              <span>✨ 平台創作者簡介・System Creator</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-white">TONY 楊文澤 老師</h2>
+            <div class="flex flex-wrap justify-center sm:justify-start gap-2 text-xs font-bold">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-amber-300 border border-slate-700">資深數位行銷科技顧問</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-emerald-300 border border-slate-700">生成式 AI 創作者</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-indigo-300 border border-slate-700">創業導師</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 經歷與學歷四宮格 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm">
+          <div class="p-4 rounded-2xl bg-slate-900/85 border border-slate-800 space-y-2">
+            <div class="font-black text-amber-400 flex items-center gap-1.5">
+              <span>💼</span>
+              <span>現職 Current</span>
+            </div>
+            <ul class="space-y-1 text-slate-200 leading-relaxed">
+              <li>▪ 龍華科大 數位行銷講師</li>
+              <li>▪ 智策慧 品牌行銷科技顧問</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/85 border border-slate-800 space-y-2">
+            <div class="font-black text-emerald-400 flex items-center gap-1.5">
+              <span>🎓</span>
+              <span>學歷 Education</span>
+            </div>
+            <ul class="space-y-1 text-slate-200 leading-relaxed">
+              <li>- 台大 EMBA 商學組</li>
+              <li>- 美國 Arizona State University 互動多媒體設計</li>
+              <li>▪ 北科大 工業設計</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/85 border border-slate-800 space-y-2">
+            <div class="font-black text-sky-400 flex items-center gap-1.5">
+              <span>🏛️</span>
+              <span>經歷 Experience</span>
+            </div>
+            <ul class="space-y-1.5 text-slate-200 leading-relaxed">
+              <li>▪ 脈動心聯股份有限公司 創辦人暨執行長</li>
+              <li>- 宏碁集團建碁 AOPEN 整合營銷處處長 / 全球品牌行銷總監 / 企業發言人</li>
+              <li>- 台灣數位看板多媒體聯盟 (DSMA) 副會長</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/85 border border-slate-800 space-y-2">
+            <div class="font-black text-purple-400 flex items-center gap-1.5">
+              <span>🏆</span>
+              <span>專家授課經歷</span>
+            </div>
+            <ul class="space-y-1 text-slate-200 leading-relaxed">
+              <li>▪ CPC 生產力中心 經營管理顧問師班 / 中小企業成長創價能量 講師</li>
+              <li>- 台大 EMBA / 長榮 EMBA / 北科大 / 政大 / 世新 業師</li>
+              <li>- 2021 MarTech 行銷科技行銷長認證班 講師</li>
+              <li>- 2021/2024/2025 T大使與產業尖兵 講師</li>
+              <li>- 2025 新光人壽 AI 工具應用 企業內訓講師</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 登入頁底部版權宣言 -->
+    <footer class="relative z-10 border-t border-slate-800/80 py-4 px-4 text-center text-xs text-slate-400">
+      © 2020 TonyStudio. 本學習平台由 TONY 楊文澤資深AI科技顧問設計. All Rights Reserved.
+    </footer>
+  </div>
+
+  <!-- ==================== 主程式區塊 (登入且信箱驗證通過後才顯示) ==================== -->
+  <div id="mainAppWrapper" class="hidden min-h-screen flex flex-col justify-between">
+
+  <!-- 頂部導覽列 -->
+  <header class="sticky top-0 z-40 glass-card border-b border-slate-800 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <img src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1785039560457_1.png?alt=media&token=19b27497-4101-4436-bc80-b299741b7984" alt="TonyStudio Logo" class="w-10 h-10 rounded-xl object-contain bg-slate-900 p-1 border border-amber-500/40 shadow-lg shadow-amber-500/20" onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=TS'">
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">金融保險業・8大台灣典型家庭實戰沙盤</span>
+            <span id="firebaseStatusBadge" class="text-xs px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
+              <span id="firebaseStatusDot" class="w-2 h-2 rounded-full bg-amber-400 pulse-dot"></span>
+              <span id="firebaseStatusText">正在連線至雲端戰情室...</span>
+            </span>
+          </div>
+          <h1 class="text-lg md:text-xl font-black tracking-tight text-white mt-0.5">
+            風險領航家：家庭風險抗壓與 AI 保單健檢決策沙盤
+          </h1>
+        </div>
+      </div>
+
+      <!-- 全域頂部倒數計時膠囊 -->
+      <div id="globalTimerBanner" class="hidden items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-slate-900 border border-amber-500/50 shadow-lg">
+        <span class="text-xs font-bold text-slate-300">⏱️ 保單配置倒數</span>
+        <span id="globalTimerDigits" class="text-base font-black font-mono text-amber-400">01:00</span>
+      </div>
+
+      <!-- 四大模式切換與控場按鈕 + 會員資訊與管理後台按鈕 -->
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- 具備 Admin 權限者才顯示的『進入管理後台』按鈕 -->
+        <button id="adminDashboardBtn" onclick="window.app.toggleAdminModal()" class="hidden px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white text-xs font-black shadow-lg shadow-rose-600/30 items-center gap-1.5 transition">
+          <span>👑 進入管理後台</span>
+        </button>
+
+        <button onclick="window.app.toggleCreatorModal()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 transition">
+          <span>👨‍🏫 TONY 顧問簡介</span>
+        </button>
+
+        <button onclick="window.app.toggleQrModal()" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold flex items-center gap-1.5 transition">
+          <span>📱 掃碼進場</span>
+        </button>
+
+        <div class="bg-slate-900/90 p-1 rounded-xl border border-slate-800 flex flex-wrap text-xs md:text-sm font-medium">
+          <button onclick="window.app.switchMode('bible')" id="tab-bible" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">
+            📖 健檢理論聖經
+          </button>
+          <button onclick="window.app.switchMode('player')" id="tab-player" class="px-3 py-1.5 rounded-lg bg-amber-600 text-white shadow transition">
+            🛡️ 保單健檢沙盤 (8案)
+          </button>
+          <button onclick="window.app.switchMode('sandbox')" id="tab-sandbox" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">
+            ✨ AI 準保戶生成
+          </button>
+          <button onclick="window.app.switchMode('instructor')" id="tab-instructor" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition">
+            📊 講師戰情室 (<span id="onlineTeamCount">0</span>組)
+          </button>
+        </div>
+
+        <button onclick="window.app.toggleConfigModal()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" title="通訊處組別與 API 設定">
+          ⚙️
+        </button>
+
+        <!-- 會員名稱與登出按鈕 -->
+        <div class="flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1.5 rounded-xl border border-slate-800 text-xs">
+          <span id="navMemberBadge" class="font-bold text-emerald-300 truncate max-w-[130px]">會員</span>
+          <button onclick="window.app.handleLogout()" class="px-2 py-0.5 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 font-bold transition">登出</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容區 -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+    <!-- 學員狀態橫幅 -->
+    <section class="glass-card rounded-2xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4 border border-slate-800/80">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xl" id="playerAvatar">👔</div>
+        <div>
+          <div class="text-xs text-slate-400 flex flex-wrap items-center gap-2">
+            <span id="displayRoleBadge" class="text-amber-400 font-semibold">[資深主管/MDRT組]</span>
+            <span>實戰房間：<strong id="displayRoomId" class="text-white font-mono">INS-2026</strong></span>
+            <span id="displayUidBadge" class="text-[11px] text-slate-500 font-mono"></span>
+          </div>
+          <div class="font-bold text-base md:text-lg text-white flex items-center gap-2 mt-0.5">
+            <span id="displayTeamName">第一通訊處：頂尖財務顧問隊</span>
+            <button onclick="window.app.toggleConfigModal()" class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 font-normal transition">✏️ 修改單位/職級</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 累積保單健檢指標 -->
+      <div class="flex items-center gap-4 md:gap-8 bg-slate-900/80 px-4 py-2.5 rounded-xl border border-slate-800">
+        <div>
+          <div class="text-xs text-slate-400">累積為保戶守護資產</div>
+          <div class="text-lg md:text-xl font-black text-emerald-400 font-mono" id="statTotalProtected">NT$ 0 萬</div>
+        </div>
+        <div class="h-8 w-px bg-slate-800"></div>
+        <div>
+          <div class="text-xs text-slate-400">平均風險抗壓指數</div>
+          <div class="text-lg md:text-xl font-black text-amber-400 font-mono" id="statAvgResilience">-- 分</div>
+        </div>
+        <div class="h-8 w-px bg-slate-800"></div>
+        <div>
+          <div class="text-xs text-slate-400">完成健檢家庭</div>
+          <div class="text-lg md:text-xl font-black text-indigo-400 font-mono"><span id="statCompletedCases">0</span> / 8</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 視角 0：📖 保單健檢理論聖經 ==================== -->
+    <div id="view-bible" class="hidden space-y-6">
+      <div class="gold-border rounded-2xl p-6 md:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="max-w-3xl space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+              TONY 老師顧問式保險心法・Insurance Advisory Bible (8 Cases Complete Edition)
+            </span>
+            <h2 class="text-2xl md:text-3xl font-black text-white mt-2">
+              📖 保單健檢理論聖經：「看懂家庭前兆訊號（Signal），配置對的防護行動（Action）！」
+            </h2>
+            <p class="text-sm md:text-base text-slate-200 leading-relaxed">
+              為什麼台灣高達 85% 民眾都買過保險，但遇到癌症標靶治療、長期失能或突發身故時，家庭財務依然瞬間崩潰？因為傳統銷售只賣「客戶喜歡聽的還本儲蓄」，卻沒做<strong>「風險壓力測試」</strong>。頂尖保險顧問必須掌握以下三大黃金準則與八大客群對照表：
+            </p>
+          </div>
+          <button onclick="window.app.switchMode('player')" class="px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-lg shadow-amber-600/30 transition shrink-0">
+            🛡️ 學完理論，進入 8 案健檢沙盤 ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- 三大顧問式健檢核心框架 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="glass-card rounded-2xl p-5 border-t-4 border-t-amber-500 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-amber-500/20 text-amber-300">法則 1・雙十黃金定律</span>
+            <span class="text-2xl">⚖️</span>
+          </div>
+          <h3 class="text-lg font-black text-white">1. 打破「高保費、低保障」陷阱</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            診斷保戶舊保單時，第一眼要先看<strong>「保費占年收入比」</strong>與<strong>「壽險/失能保額是否覆蓋家庭負債」</strong>：
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 pt-1">
+            <li class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-amber-300">📌 保費預算約年收入 10%：</strong>過高會排擠生活品質導致停效，過低則無法轉嫁極端大額風險。
+            </li>
+            <li class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-amber-300">📌 家庭責任保額應達年收入 10 倍（或覆蓋房貸餘額）：</strong>尤其三明治與夾心世代，必須以低保費高槓桿之「定期壽險」鎖住責任期。
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 border-t-4 border-t-indigo-500 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300">法則 2・五大險種優先序</span>
+            <span class="text-2xl">🏥</span>
+          </div>
+          <h3 class="text-lg font-black text-white">2. 先保大再保小、先大人後小孩</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            現代醫療科技進步（住院天數極短、自費標靶與達文西手術極貴），五大險種功能完全不同：
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 pt-1">
+            <li class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-indigo-300">① 實支實付醫療 ＋ ② 重大傷病一次金：</strong>解決「住院自費手術耗材」與「免住院標靶藥物/休養期間薪資中斷（150~300萬）」。
+            </li>
+            <li class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-indigo-300">③ 失能長照 ＋ ④ 定期壽險：</strong>解決「走不了（每月看護費5萬×15年）」與「走太早（房貸與子女教育基金缺口）」。
+            </li>
+            <li class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-indigo-300">⑤ 儲蓄理財與分紅保單：</strong>唯有在家庭高資產傳承、預留遺產稅源或四大保障皆齊備時才提高權重！
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 border-t-4 border-t-emerald-500 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300">法則 3・Signal ➔ Action</span>
+            <span class="text-2xl">🎯</span>
+          </div>
+          <h3 class="text-lg font-black text-white">3. 從人生變動訊號啟動 4R 促成</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            不要直接問客戶「要不要買保險」，而是捕捉客戶生活中的<strong>前兆訊號（Signals）</strong>轉化為健檢行動：
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2 pt-1">
+            <li class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-emerald-300">📡 捕捉訊號 (Signal)：</strong>簽房貸、新生兒滿月、迷信公司團險、買高股息ETF忽略長照、父母開始失智健忘。
+            </li>
+            <li class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+              <strong class="text-emerald-300">🚀 關鍵行動 (4R Action)：</strong>對準「真實買單決策者（Right Who）」，在「事件發生黃金窗（Right Time）」，拿出「可視化風險缺口壓力測試表（Right Offer）」完成加保！
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 八大台灣典型家庭風險缺口與配置對照表 -->
+      <div class="glass-card rounded-2xl p-6 border border-slate-800">
+        <h3 class="text-lg font-black text-white mb-1">📊 八大台灣典型保戶「前兆訊號 × 五大險種黃金配比」全景速查表</h3>
+        <p class="text-xs text-slate-400 mb-4">涵蓋第一章（基礎家庭篇 C1~C4）與第二章（進階客群篇 C5~C8）之核心判讀準則：</p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs md:text-sm">
+            <thead>
+              <tr class="border-b border-slate-700 text-slate-300 bg-slate-900/80">
+                <th class="py-3 px-4">家庭階段與案例</th>
+                <th class="py-3 px-4">📡 三大關鍵前兆訊號 (Signals)</th>
+                <th class="py-3 px-4 text-rose-400">❌ 常見錯誤保單配置</th>
+                <th class="py-3 px-4 text-emerald-400">✅ 顧問級黃金預算配置建議</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-300">
+              <tr>
+                <td class="py-3 px-4 font-bold text-white">Case 1：雙薪房貸三明治族<br><span class="text-xs text-amber-400">36歲竹科工程師＋雙幼子</span></td>
+                <td class="py-3 px-4">剛背 1,500 萬房貸 ＋ 家族有肺腺癌病史 ＋ 舊保單僅有住院日額 1,000 元</td>
+                <td class="py-3 px-4">把預算拿去幫小孩買終身還本醫療，大人卻零壽險、零重大傷病</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【重大傷病 35%】＋【定期壽險 25%】＋【實支醫療 25%】＋【失能 10%】</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-white">Case 2：外送/自營商斜槓族<br><span class="text-xs text-amber-400">29歲攝影師兼跑外送</span></td>
+                <td class="py-3 px-4">每日騎車穿梭車陣逾 4 小時 ＋ 無雇主職災勞保 ＋ 手停口停需養單親媽</td>
+                <td class="py-3 px-4">聽信推銷把錢綁在 6 年期儲蓄險，意外失能與實支骨材保額極低</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【實支醫療 35%】＋【失能扶助 35%】＋【重大傷病 15%】＋【定期壽險 10%】</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-white">Case 3：準退休熟齡夫妻<br><span class="text-xs text-amber-400">54歲主管夫妻房貸已清</span></td>
+                <td class="py-3 px-4">房貸已清、子女獨立 ＋ 健檢三高紅字 ＋ 曾照顧中風公公8年燒掉500萬</td>
+                <td class="py-3 px-4">還在買高保額定期壽險，或只買昂貴終身住院日額（不賠長照看護）</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【失能長照 40%】＋【高齡實支醫療 30%】＋【重大傷病 15%】＋【退休理財 15%】</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-white">Case 4：高資產二代傳承企業主<br><span class="text-xs text-amber-400">62歲傳產老闆身價1.8億</span></td>
+                <td class="py-3 px-4">資產85%卡在廠房不動產、現金僅1,500萬 ＋ 預估遺產稅2,250萬 ＋ 兄妹分產問題</td>
+                <td class="py-3 px-4">拼命買零碎醫療險，卻未規劃「預留稅源與指定受益人」高倍數傳承保單</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【傳承分紅/儲蓄 55%】＋【預留稅源終身壽險 25%】＋【VIP醫療/長照 20%】</td>
+              </tr>
+              <tr class="bg-indigo-950/20">
+                <td class="py-3 px-4 font-bold text-white">Case 5：不婚頂客／單身貴族 ★<br><span class="text-xs text-indigo-300">39歲外商行銷總監</span></td>
+                <td class="py-3 px-4">不婚不生老後無依靠 ＋ 迷信高股息 ETF 養老 ＋ 看病堅持住高階單人房</td>
+                <td class="py-3 px-4">買了一堆身故才賠的壽險（沒受益人要照顧），或全買儲蓄險卻無失能長照</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【失能長照 35%】＋【高日額實支醫療 30%】＋【重大傷病 25%】＋【理財 10%】（壽險0%）</td>
+              </tr>
+              <tr class="bg-indigo-950/20">
+                <td class="py-3 px-4 font-bold text-white">Case 6：新手爸媽・新生兒保單 ★<br><span class="text-xs text-indigo-300">0歲剛滿月健康寶寶</span></td>
+                <td class="py-3 px-4">滿月零體況黃金期 ＋ 長輩狂推年繳3萬終身還本醫療 ＋ 幼兒高發住院與罕病燒燙傷風險</td>
+                <td class="py-3 px-4">買單張年繳 3 萬的「終身還本住院日額」，導致寶寶遇到重症與自費醫材完全不夠賠</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【雙實支醫療 40%】＋【兒童重大傷病/防癌 35%】＋【意外燒燙傷與失能 20%】</td>
+              </tr>
+              <tr class="bg-indigo-950/20">
+                <td class="py-3 px-4 font-bold text-white">Case 7：迷信團險之醫護/科技族 ★<br><span class="text-xs text-indigo-300">35歲護理師與工程師夫妻</span></td>
+                <td class="py-3 px-4">過度依賴公司團險與醫院員工眷屬折扣 ＋ 忽略重病離職團險即斷保 ＋ 長期高壓輪班</td>
+                <td class="py-3 px-4">以為有團險就夠，商業保險只買儲蓄險，一旦罹癌留職停薪頓失所有醫療保障</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【重大傷病一次金 40%】＋【可攜式個人實支醫療 30%】＋【失能 15%】＋【定期壽險 10%】</td>
+              </tr>
+              <tr class="bg-indigo-950/20">
+                <td class="py-3 px-4 font-bold text-white">Case 8：上有老下有小・雙薪夾心族 ★<br><span class="text-xs text-indigo-300">46歲中階主管夫妻</span></td>
+                <td class="py-3 px-4">下有兩名升學中孩子、上有76歲初老雙親 ＋ 舊儲蓄險剛滿期釋出預算 ＋ 先生出現胸悶警訊</td>
+                <td class="py-3 px-4">把滿期金又滾入下一張 10 年期儲蓄險，夫妻自身重傷與失能保額卻不到 50 萬</td>
+                <td class="py-3 px-4 font-semibold text-emerald-300">【重大傷病 30%】＋【失能長照 25%】＋【實支醫療 25%】＋【10年期定期壽險護學 15%】</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 視角 1：🛡️ 學員保單健檢決策沙盤 (8大案例) ==================== -->
+    <div id="view-player" class="space-y-5">
+
+      <!-- 題庫章節篩選器 -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+          <span class="text-slate-400">📚 選擇保戶案例章節：</span>
+          <button onclick="window.app.setChapterFilter('ch1')" id="chap-ch1" class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition">
+            第一章：基礎家庭篇 (Case 1~4)
+          </button>
+          <button onclick="window.app.setChapterFilter('ch2')" id="chap-ch2" class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition">
+            第二章：進階客群篇 (Case 5~8 ⭐新擴充)
+          </button>
+          <button onclick="window.app.setChapterFilter('all')" id="chap-all" class="px-3 py-1.5 rounded-xl bg-amber-600 text-white shadow border border-amber-500 transition">
+            🔥 完整 8 大案例全開
+          </button>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.app.switchMode('bible')" class="text-xs px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold transition">
+            📖 查看《8案健檢理論聖經》
+          </button>
+          <button onclick="window.app.switchMode('sandbox')" class="text-xs px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition">
+            ✨ 用 AI 生成新保戶案例
+          </button>
+        </div>
+      </div>
+
+      <!-- 8 大案例選擇器 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="caseSelectorContainer"></div>
+
+      <!-- 沙盤主體：左客戶檔案與前兆訊號、右 5 大險種預算滑桿 -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- 左側：客戶家庭基本資料與 3 大風險前兆訊號 (佔 5 欄) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="gold-border rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span id="caseTag" class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                Case 1・三明治房貸族健檢
+              </span>
+              <span id="caseBudgetBadge" class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-slate-900 text-emerald-400 border border-slate-700">
+                年繳保費預算：NT$ 10 萬元
+              </span>
+            </div>
+            <h2 id="caseTitle" class="text-xl font-black text-white mb-2">36歲竹科雙薪工程師家庭</h2>
+            <p id="caseDesc" class="text-sm text-slate-300 leading-relaxed"></p>
+          </div>
+
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                <span>📡 Step 1：判讀保戶家庭三大前兆訊號 (Signals)</span>
+              </h3>
+              <span class="text-xs text-amber-400">找出致命保障缺口</span>
+            </div>
+            <div id="signalsContainer" class="space-y-3"></div>
+          </div>
+        </div>
+
+        <!-- 右側：5 大險種 100% 預算滑桿配置與風險開獎 (佔 7 欄) -->
+        <div class="lg:col-span-7 space-y-6">
+          <div id="playerDecisionCard" class="glass-card rounded-2xl p-5 md:p-6 transition-all">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800">
+              <div>
+                <h3 class="text-base md:text-lg font-bold text-white">⚖️ Step 2：配置五大險種保費權重（總和須為 100%）</h3>
+                <p class="text-xs text-slate-400">請為保戶把每分保費花在刀口上，配置完成後將抽取「10年後人生突發風險事件」進行理賠壓力測試！</p>
+              </div>
+              <!-- 快捷配置按鈕群 -->
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button onclick="window.app.applyCaseBestPreset()" class="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-700 transition font-bold">⭐ 顧問黃金配置</button>
+                <button onclick="window.app.setFiveWeights(10,0,0,0,90)" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-900/40 hover:text-rose-300 text-slate-300 border border-slate-700 transition">❌ 狂塞90%儲蓄險</button>
+                <button onclick="window.app.setFiveWeights(80,10,0,0,10)" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-900/40 hover:text-amber-300 text-slate-300 border border-slate-700 transition">⚠️ 只買住院醫療</button>
+                <button onclick="window.app.setFiveWeights(20,20,20,20,20)" class="text-xs px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">20% 平均分配</button>
+              </div>
+            </div>
+
+            <!-- 5 大險種滑桿容器 -->
+            <div id="slidersContainer" class="space-y-4"></div>
+
+            <!-- 預算總和檢核與開獎按鈕 -->
+            <div class="mt-6 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-slate-300">目前保費配置總和：</span>
+                <span id="budgetSumBadge" class="text-lg font-black font-mono px-3 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  100% (配置完成)
+                </span>
+              </div>
+
+              <button id="submitDecisionBtn" onclick="window.app.submitDecision()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-emerald-600 hover:from-amber-400 hover:to-emerald-500 text-slate-950 font-black shadow-lg shadow-amber-500/25 transition flex items-center gap-2">
+                <span>⚡ 推進 10 年：啟動人生突發風險壓力測試</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ==================== 開獎結果：10年後人生突發風險帳單對決 ＋ 深度報告 ＋ Word 下載 ==================== -->
+          <div id="resultPanel" class="hidden glass-card rounded-2xl p-5 md:p-6 border-2 border-amber-500/50 space-y-6">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+              <div class="flex items-center gap-2.5">
+                <span class="text-3xl">🚨</span>
+                <div>
+                  <h3 class="text-lg md:text-xl font-black text-white">10 年後人生黑天鵝開獎 ＆ 保單壓力測試診斷書</h3>
+                  <p class="text-xs text-slate-400">檢視貴組配置的保單能否替客戶扛下真實醫療與家庭責任衝擊</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <div id="resultGradeBadge" class="px-3 py-1.5 rounded-xl font-black text-xs md:text-sm bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  S 級・MDRT 風險領航家
+                </div>
+                <button onclick="window.app.exportWordReport()" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-600/30 flex items-center gap-1.5 transition">
+                  <span>📥 下載保單健檢 Word 建議書 (.doc)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 突發風險事件揭曉卡 -->
+            <div class="p-4 rounded-2xl bg-rose-950/40 border border-rose-500/40 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-rose-500/30 text-rose-200">
+                  ⚡ 壓力測試・突發人生黑天鵝事件
+                </span>
+                <span id="shockTotalLossLabel" class="text-xs font-mono font-bold text-rose-300">總財務衝擊：NT$ 420 萬元</span>
+              </div>
+              <h4 id="shockEventTitle" class="text-base md:text-lg font-black text-white"></h4>
+              <p id="shockEventDesc" class="text-xs md:text-sm text-slate-200 leading-relaxed"></p>
+            </div>
+
+            <!-- 四大壓力測試核心指標卡 -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                <div class="text-xs text-slate-400">風險事件總財務衝擊</div>
+                <div id="resShockLoss" class="text-lg font-black text-rose-400 font-mono mt-1">NT$ 420萬</div>
+              </div>
+              <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                <div class="text-xs text-slate-400">貴組保單成功理賠金</div>
+                <div id="resClaimPayout" class="text-lg font-black text-emerald-400 font-mono mt-1">NT$ 405萬</div>
+              </div>
+              <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                <div class="text-xs text-slate-400">客戶自掏腰包缺口</div>
+                <div id="resOutPocket" class="text-lg font-black text-amber-400 font-mono mt-1">NT$ 15萬</div>
+              </div>
+              <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800">
+                <div class="text-xs text-slate-400">家庭風險抗壓指數</div>
+                <div id="resScore" class="text-lg font-black text-white font-mono mt-1">95 分</div>
+              </div>
+            </div>
+
+            <!-- 壹、五大險種配置權重 vs. 顧問黃金標準 逐項因果診斷 -->
+            <div class="bg-slate-900/95 rounded-2xl p-5 border border-slate-800 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+                <h4 class="text-sm font-black text-amber-300">
+                  🔍 壹、為什麼會產生這個理賠結果？（五大險種配置權重逐項診斷說明）
+                </h4>
+                <span class="text-xs text-slate-400">對比您的配置與顧問黃金配比</span>
+              </div>
+              <div id="fivePillarsDiagnosisContainer" class="space-y-2.5 text-xs"></div>
+            </div>
+
+            <!-- 貳、4R Action 顧問促成與保單調整落地劇本 -->
+            <div class="bg-emerald-950/30 rounded-2xl p-5 border border-emerald-500/30 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-emerald-500/20 pb-2.5">
+                <h4 class="text-sm font-black text-emerald-300">
+                  🎯 貳、從風險訊號到簽單促成：4R Action 顧問式面談落地劇本
+                </h4>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">業務實戰必備話術</span>
+              </div>
+              <div id="actionPlaybookContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs"></div>
+            </div>
+
+            <!-- 參、AI 首席保險顧問深度講評 (Gemini 3.8 Flash) -->
+            <div class="bg-indigo-950/40 rounded-2xl p-5 border border-indigo-500/40 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h4 class="text-sm font-black text-white">
+                    🤖 參、AI 首席核保與財務顧問個人化講評 (Gemini 3.8 Flash)
+                  </h4>
+                  <p class="text-xs text-slate-400">針對貴組剛剛的 5 大險種配比，生成可直接寫進客戶保單健檢書的專業建議</p>
+                </div>
+                <button id="btnGenerateAiReport" onclick="window.app.generateAiDeepCommentary()" class="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-black shadow transition">
+                  ✨ 請 AI 顧問生成健檢總評與促成話術
+                </button>
+              </div>
+              <div id="aiDeepCommentaryBox" class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs md:text-sm text-slate-200 leading-relaxed whitespace-pre-line"></div>
+            </div>
+
+            <!-- 肆、保戶家屬與理賠部真實反應 -->
+            <div>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">💬 肆、風險發生當下：保戶家屬與理賠人員真實心聲</h4>
+              <div id="customerPersonasContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3"></div>
+            </div>
+
+            <!-- 底部操作列 -->
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+              <div class="text-xs text-slate-300">
+                💡 <strong>實戰武器：</strong>點擊右側藍色按鈕即可下載編排精美的《家庭保單健檢與風險壓力測試報告書 (.doc)》，直接帶去拜訪客戶！
+              </div>
+              <div class="flex items-center gap-2.5">
+                <button onclick="window.app.exportWordReport()" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 transition">
+                  📄 匯出排版 Word 健檢建議書 (.doc)
+                </button>
+                <button onclick="window.app.goToNextCase()" class="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-black shadow transition">
+                  挑戰下一組家庭案例 ➔
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 視角 2：✨ AI 準保戶案例生成器 ==================== -->
+    <div id="view-sandbox" class="hidden space-y-6">
+      <div class="gold-border rounded-2xl p-6">
+        <div class="max-w-4xl">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+              AI Client Simulator・Gemini 3.8 Flash 驅動
+            </span>
+            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              支援同步廣播至全班第 8 案壓軸演練
+            </span>
+          </div>
+          <h2 class="text-2xl font-black text-white mt-2">✨ AI 準保戶背景生成器（真實客戶案例模擬 × 雲端廣播）</h2>
+          <p class="text-sm text-slate-300 mt-1">
+            請現場業務同仁輸入本週準備去拜訪的真實準保戶背景（職業年齡、家庭負債與目前投保盲點），系統將透過 <code class="text-amber-300 font-mono">gemini-3.8-flash</code> 即時生成包含「3大風險前兆訊號」、「5大險種黃金配比」、「10年後突發風險壓力測試事件」與「4R 促成話術」的專屬沙盤！
+          </p>
+        </div>
+
+        <!-- 快捷準保戶範本 -->
+        <div class="mt-5 pt-4 border-t border-slate-800/80">
+          <span class="text-xs font-bold text-amber-300 block mb-2">🎲 點擊快速帶入常見準保戶典型背景（或於下方自行輸入）：</span>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="window.app.fillSandboxPreset('38歲連鎖餐飲店老闆（已婚育有1女）', '年繳預算 12 萬元（店面貸款800萬）', '覺得自己年輕身體好，把錢都拿去開分店，只有基本的健保與勞保最低級距')" class="text-xs px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-amber-950 text-slate-200 border border-slate-700 transition">🍜 38歲餐飲店老闆（背開店貸款卻零保障）</button>
+            <button onclick="window.app.fillSandboxPreset('33歲新住民美容美甲創業者（單親撫養1子）', '年繳預算 5 萬元（租屋與扶養母親）', '聽信同鄉買了郵局儲蓄險，完全沒有實支實付與重大傷病保障')" class="text-xs px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-amber-950 text-slate-200 border border-slate-700 transition">💅 33歲新住民美業主理人（單親母子零醫療網）</button>
+            <button onclick="window.app.fillSandboxPreset('48歲診所自費牙醫師', '年繳預算 35 萬元（高收入但極度依賴雙手精細動作）', '買了很多房地產與股票，但忽略萬一眼睛或手指神經受損無法看診的失能風險')" class="text-xs px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-amber-950 text-slate-200 border border-slate-700 transition">🦷 48歲高收牙醫師（雙手精細工作失能風險）</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div>
+            <label class="block text-xs text-slate-300 font-semibold mb-1">1. 準保戶職業、年齡與家庭結構</label>
+            <input id="customClientProfile" type="text" value="38歲連鎖餐飲店老闆（已婚育有1名5歲女兒）" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-amber-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 font-semibold mb-1">2. 年繳保費預算與家庭負債狀況</label>
+            <input id="customClientBudget" type="text" value="年繳預算 12 萬元（背負開店創業貸款與房貸共 900 萬）" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-amber-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 font-semibold mb-1">3. 客戶目前的拒絕理由或保障盲點</label>
+            <input id="customClientPain" type="text" value="覺得買保險沒用到很浪費錢，只想要會還本的儲蓄險，完全沒買重大傷病與定期壽險" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:border-amber-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+            <input id="broadcastCustomCheck" type="checkbox" checked class="rounded bg-slate-900 border-slate-700 text-amber-600 focus:ring-amber-500">
+            <span>同時將此 AI 準保戶案例廣播至全班 Case 8（讓全通訊處一起幫這位同仁設計保單組合）</span>
+          </label>
+          <button id="generateCustomBtn" onclick="window.app.generateCustomCase()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/25 transition flex items-center gap-2">
+            <span>⚡ 立即以 gemini-3.8-flash 生成準保戶健檢沙盤</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 視角 3：📊 講師大螢幕戰情室 ==================== -->
+    <div id="view-instructor" class="hidden space-y-6">
+
+      <!-- 講師控場指揮台 -->
+      <div id="warRoomTimerCard" class="glass-card rounded-2xl p-5 md:p-6 border border-amber-500/40 transition-all">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+
+          <div class="lg:col-span-4 bg-slate-900/90 p-4 rounded-2xl border border-slate-800 flex items-center justify-between gap-4">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Step 1・通訊處掃碼入場</span>
+              <h3 class="text-base font-black text-white mt-0.5">房間代碼：<span id="warRoomCodeDisplay" class="font-mono text-amber-400">INS-2026</span></h3>
+              <p class="text-xs text-slate-400 mt-1">點擊右側放大顯示 QR Code，讓現場業務同仁手機掃描秒速進場</p>
+            </div>
+            <button onclick="window.app.toggleQrModal()" class="shrink-0 px-4 py-3 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-xs shadow-lg shadow-emerald-600/25 flex flex-col items-center gap-1 transition">
+              <span class="text-2xl">📱</span>
+              <span>放大 QR Code</span>
+            </button>
+          </div>
+
+          <div class="lg:col-span-8 bg-slate-900/90 p-4 md:px-6 rounded-2xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="text-center">
+                <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-0.5">Step 2・限時保單配置計時器</div>
+                <div id="instructorTimerDigits" class="text-4xl md:text-5xl font-black font-mono tracking-wider text-white">
+                  01:00
+                </div>
+              </div>
+              <div class="h-12 w-px bg-slate-800 hidden sm:block"></div>
+              <div class="space-y-1.5">
+                <div class="flex items-center gap-1.5">
+                  <span id="timerStatusTag" class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">待命準備中</span>
+                  <button onclick="window.app.toggleSoundMute()" id="soundMuteBtn" class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30 transition">
+                    🔊 音效：開啟
+                  </button>
+                </div>
+                <p class="text-xs text-slate-400">倒數同步顯示於全班手機，最後 10 秒觸發急促警示音與紅光閃爍</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 shrink-0">
+              <button onclick="window.app.startClassroomTimer(60)" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/25 transition">
+                ▶️ 啟動 60 秒
+              </button>
+              <button onclick="window.app.startClassroomTimer(30)" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs border border-slate-700 transition">
+                ⚡ 30秒衝刺
+              </button>
+              <button onclick="window.app.stopClassroomTimer()" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs border border-slate-700 transition">
+                ⏹️ 重置
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mt-4">
+          <div id="instructorTimerBar" class="h-full bg-gradient-to-r from-amber-500 to-emerald-400 transition-all duration-300" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <!-- 群體配置分佈與排行榜 -->
+      <div class="glass-card rounded-2xl p-6 border border-amber-500/30">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Instructor War Room・Firestore 即時同步</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">Project: game14-ai-predictive-marketing</span>
+            </div>
+            <h2 class="text-2xl font-black text-white mt-1">📊 全場保單配置習慣對比：「資深主管組」vs.「新銳業務組」</h2>
+            <p class="text-sm text-slate-400">當前檢視案例：<strong id="warRoomCurrentCaseLabel" class="text-amber-300">Case 1</strong>（可點擊下方快速切換檢視 C1～C8 各案統計）</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="window.app.seedDemoTeamsToFirestore()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-amber-300 border border-slate-700 transition">
+              ➕ 塞入 5 組模擬通訊處隊伍 (彩排用)
+            </button>
+            <button onclick="window.app.clearRoomTeams()" class="px-3.5 py-2 rounded-xl bg-rose-950/60 hover:bg-rose-900/70 text-xs font-bold text-rose-300 border border-rose-800/60 transition">
+              🗑️ 清空重置本房間數據
+            </button>
+          </div>
+        </div>
+
+        <div id="warRoomCaseQuickBar" class="flex flex-wrap gap-1.5 mb-6 pb-4 border-b border-slate-800"></div>
+
+        <!-- 資深主管組 vs 新銳業務組 5大險種配置對比長條圖 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-amber-400 flex items-center gap-2">
+                <span>👔 資深主管 / MDRT 組</span>
+                <span id="mgrGroupCountBadge" class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">0 組</span>
+              </h3>
+              <span class="text-xs text-slate-400">五大險種平均保費配置</span>
+            </div>
+            <div id="chartManager" class="space-y-2.5"></div>
+          </div>
+
+          <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-indigo-400 flex items-center gap-2">
+                <span>🚀 新銳業務 / 增員專案組</span>
+                <span id="advGroupCountBadge" class="text-xs px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">0 組</span>
+              </h3>
+              <span class="text-xs text-slate-400">五大險種平均保費配置</span>
+            </div>
+            <div id="chartAdvisor" class="space-y-2.5"></div>
+          </div>
+        </div>
+
+        <!-- 即時排行榜 -->
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-white">🏆 全場「MDRT 風險領航家」即時雲端排行榜 (依累積守護保戶資產排序)</h3>
+            <span class="text-xs text-slate-400">只要學員點擊「啟動人生突發風險壓力測試」，排行榜將毫秒級自動更新</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 text-xs">
+                  <th class="py-2.5 px-3">名次</th>
+                  <th class="py-2.5 px-3">通訊處 / 組別名稱</th>
+                  <th class="py-2.5 px-3">職級組別</th>
+                  <th class="py-2.5 px-3">本案配置 (醫療/重傷/失能/壽險/儲蓄)</th>
+                  <th class="py-2.5 px-3">完成健檢數</th>
+                  <th class="py-2.5 px-3">平均抗壓指數</th>
+                  <th class="py-2.5 px-3 text-right">累積為保戶守護資產</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardBody" class="divide-y divide-slate-800/60"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 平台創作者 TONY 顧問簡介區塊 (內嵌於主畫面底部上方) -->
+  <section class="max-w-7xl w-full mx-auto px-4 pb-6">
+    <div class="gold-border rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <img src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1787580326393_ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%20%E4%B8%8A%E5%8D%8811_16_14.png?alt=media&token=3c85de41-f36f-46e5-a97a-7bc7eb83a027" alt="TONY 楊文澤 老師" class="w-16 h-16 rounded-2xl object-cover border-2 border-amber-400 shadow-lg shrink-0" onerror="this.src='https://placehold.co/120x120/0f172a/f59e0b?text=TONY'">
+        <div class="text-center sm:text-left">
+          <div class="text-xs font-bold text-amber-300">平台創作者・TONY 楊文澤 老師（資深數位行銷科技顧問 / 生成式 AI 創作者 / 創業導師）</div>
+          <p class="text-xs text-slate-300 mt-1">現任龍華科大數位行銷講師、智策慧品牌行銷科技顧問；曾任脈動心聯創辦人暨執行長、宏碁集團建碁 AOPEN 全球品牌行銷總監。台大 EMBA 商學組 / 美國 ASU 互動多媒體設計。</p>
+        </div>
+      </div>
+      <button onclick="window.app.toggleCreatorModal()" class="shrink-0 px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition">
+        📖 查看完整專家資歷
+      </button>
+    </div>
+  </section>
+
+  <!-- 底部版權列 -->
+  <footer class="border-t border-slate-800/80 py-4 px-4 text-center text-xs text-slate-400">
+    © 2020 TonyStudio. 本學習平台由 TONY 楊文澤資深AI科技顧問設計. All Rights Reserved.
+  </footer>
+
+  </div><!-- 結束 #mainAppWrapper -->
+
+  <!-- ==================== 彈窗 0：👑 專屬管理者後台 (Admin Dashboard) ==================== -->
+  <div id="adminModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-card max-w-7xl w-full rounded-3xl p-6 md:p-8 border-2 border-amber-500/50 shadow-2xl space-y-6 my-auto max-h-[92vh] overflow-y-auto">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl">👑</span>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-400">RBAC SaaS Admin Dashboard</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono">系統創作者最高權限：mindnodeai@gmail.com</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-black text-white mt-0.5">會員權限管理、學習歷程追蹤與 AI 商業數據分析後台</h3>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button onclick="window.app.exportMembersCSV()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-lg shadow-emerald-600/30 flex items-center gap-1.5 transition">
+            <span>📊 匯出會員名單 CSV (含 BOM 防亂碼)</span>
+          </button>
+          <button onclick="window.app.toggleAdminModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xl font-bold flex items-center justify-center">&times;</button>
+        </div>
+      </div>
+
+      <!-- 後台統計摘要卡 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <div class="text-xs text-slate-400">總註冊會員數</div>
+          <div id="adminStatTotalUsers" class="text-2xl font-black text-white font-mono mt-1">0</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <div class="text-xs text-slate-400">🎓 TONY 老師學員數</div>
+          <div id="adminStatStudents" class="text-2xl font-black text-amber-400 font-mono mt-1">0</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <div class="text-xs text-slate-400">🌟 一般訪客數</div>
+          <div id="adminStatGuests" class="text-2xl font-black text-emerald-400 font-mono mt-1">0</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+          <div class="text-xs text-slate-400">累積總登錄與演練人次</div>
+          <div id="adminStatTotalLogins" class="text-2xl font-black text-indigo-400 font-mono mt-1">0</div>
+        </div>
+      </div>
+
+      <!-- 功能 6：AI 分析報告（設定起訖時間 ➔ 產出分析報告 ➔ 輸出成 WORD 檔） -->
+      <div class="gold-border rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">功能 6・AI 營運與培訓成效分析報告</span>
+            <h4 class="text-base md:text-lg font-black text-white mt-1">📈 設定起訖時間區間：產出 AI 會員行為與保單健檢決策分析報告</h4>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <div class="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
+              <span class="text-slate-400">起始日期：</span>
+              <input type="date" id="aiReportStartDate" class="bg-transparent text-white font-mono focus:outline-none">
+            </div>
+            <div class="flex items-center gap-1.5 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-700">
+              <span class="text-slate-400">結束日期：</span>
+              <input type="date" id="aiReportEndDate" class="bg-transparent text-white font-mono focus:outline-none">
+            </div>
+            <button id="btnAdminAiAnalyze" onclick="window.app.generateAdminAiReport()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black shadow transition">
+              🤖 產出區間 AI 分析報告
+            </button>
+            <button onclick="window.app.exportAdminAiWord()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold shadow transition">
+              📥 輸出成 WORD 檔 (.doc)
+            </button>
+          </div>
+        </div>
+        <div id="adminAiReportBox" class="p-4 rounded-xl bg-slate-950/90 border border-slate-800 text-xs md:text-sm text-slate-200 leading-relaxed whitespace-pre-line max-h-60 overflow-y-auto">請選擇上方起訖日期並點擊「🤖 產出區間 AI 分析報告」，系統將自動彙整該時間區間內之註冊會員結構、TONY 老師學員佔比、登錄活躍度與各案例保單健檢表現，並支援一鍵匯出成正式 Word 營運分析報告！</div>
+      </div>
+
+      <!-- 會員資料動態渲染表格 -->
+      <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="text-sm md:text-base font-bold text-white">👥 註冊會員清冊與 RBAC 權限控制表（即時同步 Firestore `users` 集合）</h4>
+          <span class="text-xs text-slate-400">點擊「📜 歷史紀錄」可檢視該會員之完整登入與保單健檢演練軌跡</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-700 text-slate-300 bg-slate-950/70">
+                <th class="py-3 px-3">真實姓名</th>
+                <th class="py-3 px-3">電子郵件 (Email)</th>
+                <th class="py-3 px-3">參訓身份</th>
+                <th class="py-3 px-3">系統權限 (Role)</th>
+                <th class="py-3 px-3">註冊時間</th>
+                <th class="py-3 px-3 text-center">登錄次數</th>
+                <th class="py-3 px-3 text-right">權限升降級 / 歷史紀錄 / 刪除</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersTableBody" class="divide-y divide-slate-800/70 text-slate-200"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 單一會員歷史紀錄檢視區 -->
+      <div id="memberHistoryDrawer" class="hidden p-5 rounded-2xl bg-indigo-950/40 border border-indigo-500/40 space-y-3">
+        <div class="flex items-center justify-between border-b border-indigo-500/30 pb-2">
+          <h4 id="memberHistoryTitle" class="text-sm font-black text-indigo-300">📜 會員學習與登錄歷史紀錄</h4>
+          <button onclick="document.getElementById('memberHistoryDrawer').classList.add('hidden')" class="text-xs text-slate-400 hover:text-white">關閉紀錄 &times;</button>
+        </div>
+        <div id="memberHistoryList" class="space-y-2 max-h-56 overflow-y-auto text-xs"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 彈窗 0.5：👨‍🏫 平台創作者 TONY 顧問完整簡介彈窗 ==================== -->
+  <div id="creatorModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-card max-w-3xl w-full rounded-3xl p-6 md:p-8 border-2 border-amber-500/40 shadow-2xl space-y-6 my-auto">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <img src="https://firebasestorage.googleapis.com/v0/b/k16-tony-ai-wisdom-platform.firebasestorage.app/o/assets%2F6av64EOvvqQNAIoXqcPfHC5BBeF3%2F1787580326393_ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%20%E4%B8%8A%E5%8D%8811_16_14.png?alt=media&token=3c85de41-f36f-46e5-a97a-7bc7eb83a027" alt="TONY 顧問" class="w-16 h-16 rounded-2xl object-cover border-2 border-amber-400">
+          <div>
+            <span class="text-xs font-bold text-amber-400">平台創作者簡介</span>
+            <h3 class="text-2xl font-black text-white">TONY 楊文澤 老師</h3>
+            <p class="text-xs text-slate-300">資深數位行銷科技顧問 ｜ 生成式 AI 創作者 ｜ 創業導師</p>
+          </div>
+        </div>
+        <button onclick="window.app.toggleCreatorModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xl font-bold">&times;</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm text-slate-200">
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div class="font-bold text-amber-400">現職 Current</div>
+          <p>▪ 龍華科大 數位行銷講師</p>
+          <p>▪ 智策慧 品牌行銷科技顧問</p>
+          <div class="font-bold text-emerald-400 pt-2">學歷 Education</div>
+          <p>- 台大 EMBA 商學組</p>
+          <p>- 美國 Arizona State University 互動多媒體設計</p>
+          <p>▪ 北科大 工業設計</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div class="font-bold text-sky-400">經歷 Experience</div>
+          <p>▪ 脈動心聯股份有限公司 創辦人暨執行長</p>
+          <p>- 宏碁集團建碁 AOPEN 整合營銷處處長 / 全球品牌行銷總監 / 企業發言人</p>
+          <p>- 台灣數位看板多媒體聯盟 (DSMA) 副會長</p>
+          <div class="font-bold text-purple-400 pt-2">專家授課經歷</div>
+          <p>▪ CPC 生產力中心 經營管理顧問師班 / 中小企業成長創價能量 講師</p>
+          <p>- 台大 EMBA / 長榮 EMBA / 北科大 / 政大 / 世新 業師</p>
+          <p>- 2021 MarTech 行銷科技行銷長認證班 講師</p>
+          <p>- 2021/2024/2025 T大使與產業尖兵 講師</p>
+          <p>- 2025 新光人壽 AI 工具應用 企業內訓講師</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 彈窗 1：QR Code 掃碼入場投影幕 ==================== -->
+  <div id="qrModal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card max-w-4xl w-full rounded-3xl p-6 md:p-8 border-2 border-amber-500/40 shadow-2xl space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl">📱</span>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">保險業顧問式培訓・互動沙盤連線</span>
+            <h3 class="text-2xl font-black text-white">請拿出手機掃描 QR Code 進入保單健檢沙盤</h3>
+          </div>
+        </div>
+        <button onclick="window.app.toggleQrModal()" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-2xl font-bold flex items-center justify-center">&times;</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-5 flex flex-col items-center">
+          <div class="p-4 bg-white rounded-3xl shadow-2xl border-4 border-amber-400">
+            <img id="qrCodeImage" src="" alt="Room QR Code" class="w-64 h-64 md:w-72 md:h-72 object-contain">
+          </div>
+          <span class="text-xs text-slate-400 mt-2">掃描後自動帶入房間代碼，登入後即可同步演練</span>
+        </div>
+
+        <div class="md:col-span-7 space-y-5">
+          <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+            <div class="text-xs text-slate-400">當前培訓房間代碼 (Room Code)</div>
+            <div id="qrModalRoomCode" class="text-4xl md:text-5xl font-black font-mono text-amber-400 tracking-wider mt-1">INS-2026</div>
+            <div class="mt-3 pt-3 border-t border-slate-800/80">
+              <label class="block text-xs text-slate-400 mb-1">🔗 課堂部署網址（可隨時修改以更新左側 QR Code）：</label>
+              <div class="flex gap-2">
+                <input id="qrUrlInput" type="text" class="flex-1 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-200 font-mono" oninput="window.app.updateQrCodeImage()">
+                <button onclick="window.app.copyJoinLink()" id="copyLinkBtn" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-black shrink-0">複製連結</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-sm font-bold text-white flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 pulse-dot"></span>
+                <span>目前已連線通訊處組別</span>
+              </span>
+              <span id="qrModalTeamCount" class="text-sm font-black font-mono text-amber-400">0 組已就緒</span>
+            </div>
+            <div id="qrModalTeamBadges" class="flex flex-wrap gap-2 max-h-36 overflow-y-auto"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 彈窗 2：組別與 Gemini API 設定 Modal ==================== -->
+  <div id="configModal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card max-w-lg w-full rounded-2xl p-6 border border-slate-700 space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-lg font-black text-white">⚙️ 通訊處組別與 Gemini 3.8 API 設定</h3>
+        <button onclick="window.app.toggleConfigModal()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+      </div>
+
+      <div class="space-y-4 text-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="sm:col-span-2">
+            <label class="block text-xs text-slate-400 mb-1">您的通訊處 / 組別名稱（將印製於 Word 保單健檢書封面）</label>
+            <input id="inputTeamName" type="text" value="第一通訊處：頂尖財務顧問隊" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">培訓房間代碼</label>
+            <input id="inputRoomId" type="text" value="INS-2026" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">參訓職級組別（用於講師戰情室「資深主管 vs. 新銳業務」比較）</label>
+          <select id="inputRole" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white">
+            <option value="manager">👔 資深主管 / MDRT 組</option>
+            <option value="advisor">🚀 新銳業務 / 增員專案組</option>
+          </select>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800">
+          <label class="block text-xs text-amber-300 font-semibold mb-1">🔑 Google Gemini API Key（用於「AI 準保戶生成」與「AI 健檢講評」）</label>
+          <input id="inputGeminiKey" type="password" placeholder="貼上您的 AIzaSy... 金鑰 (將儲存於本機瀏覽器)" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-xs">
+          <p class="text-[11px] text-slate-400 mt-1">
+            預設優先呼叫 <code class="text-emerald-400 font-mono">gemini-3.8-flash</code>，並內建指數退避與 <code class="text-amber-400 font-mono">gemini-3.5-flash</code> 自動降級保護。
+          </p>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+        <button onclick="window.app.saveConfig()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm">儲存並同步至雲端</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase Modular SDK (v11) 與應用程式核心邏輯 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import {
+      getAuth,
+      signInAnonymously,
+      onAuthStateChanged,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
+      sendEmailVerification,
+      sendPasswordResetEmail,
+      signOut,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, updateDoc, collection, onSnapshot, deleteDoc, getDocs, serverTimestamp, increment, arrayUnion
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    /******************************************************************
+     * 1. FIREBASE CONFIG (正式專案：game15-risk-and-insurance)
+     ******************************************************************/
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLN8ysj9Qh8seKT-Hitlxes2QwwpMBiYQ",
+      authDomain: "game15-risk-and-insurance.firebaseapp.com",
+      projectId: "game15-risk-and-insurance",
+      storageBucket: "game15-risk-and-insurance.firebasestorage.app",
+      messagingSenderId: "798312891752",
+      appId: "1:798312891752:web:3514768013db846bc2c2dd",
+      measurementId: "G-DE0517KL6E"
+    };
+
+    const CREATOR_ADMIN_EMAIL = "mindnodeai@gmail.com";
+
+    /******************************************************************
+     * 2. 五大險種維度定義 (5 Insurance Pillars)
+     ******************************************************************/
+    const PILLARS = [
+      { code: "med", icon: "🏥", name: "實支實付醫療險", sub: "自費手術、達文西、高階醫材雜費補償", color: "text-sky-400", barColor: "bg-sky-500" },
+      { code: "ci", icon: "🎗️", name: "重大傷病與防癌一次金", sub: "確診即領百萬元現金，支應標靶藥物與休養薪資中斷", color: "text-rose-400", barColor: "bg-rose-500" },
+      { code: "ltc", icon: "🦽", name: "失能與長照扶助險", sub: "疾病或意外導致長期失能，提供每月看護生活扶助金", color: "text-amber-400", barColor: "bg-amber-500" },
+      { code: "life", icon: "🏠", name: "定期/終身壽險 (家庭責任)", sub: "鎖定房貸餘額、家庭生活費與子女教育基金缺口", color: "text-emerald-400", barColor: "bg-emerald-500" },
+      { code: "sav", icon: "💰", name: "儲蓄理財與高資產傳承", sub: "資產累積、退休現金流、預留遺產稅源與指定受益人", color: "text-purple-400", barColor: "bg-purple-500" }
+    ];
+
+    /******************************************************************
+     * 3. 八大台灣典型家庭保單健檢沙盤案例資料庫 (Case 1 ~ Case 8)
+     ******************************************************************/
+    const CASES = [
+      // ==================== 第一章：基礎家庭篇 (Case 1 ~ Case 4) ====================
+      {
+        id: 1,
+        chapter: "ch1",
+        tag: "Case 1・三明治房貸族健檢",
+        profileTitle: "👨‍👩‍👧‍👦 36歲竹科雙薪工程師家庭（育有 2 幼子）",
+        annualBudgetMan: 10,
+        desc: "男主人 36 歲（年收 180 萬），太太 34 歲（行政年收 60 萬），育有 4 歲與 1 歲幼子。去年剛在新竹買房背負 1,500 萬房貸。目前男主人只有媽媽 20 年前幫他買的「終身住院日額 1,000 元」，年繳保費預算為 10 萬元。",
+        signals: [
+          { icon: "🏠", type: "家庭負債訊號", title: "1,500 萬房貸 ＋ 2 名幼子 20 年撫養期", detail: "男主人占家庭總收入 75%，若發生突發身故或重病倒下，太太單靠 60 萬年薪將立即面臨法拍屋與育兒斷炊危機。" },
+          { icon: "🫁", type: "家族病史與體況訊號", title: "父親曾罹患肺腺癌 ＋ 本人長期熬夜輪班", detail: "現代肺腺癌多採免住院之「口服標靶藥物與免疫療法」，每月自費高達 12～18 萬元，傳統住院日額險完全不理賠！" },
+          { icon: "📑", type: "既有保單盲點訊號", title: "舊保單僅有「住院日額 1,000 元」且實支額度僅 5 萬", detail: "保戶誤以為『我有買過終身醫療就夠了』，卻不知面對達文西手術或癌症標靶治療，現有保單理賠覆蓋率不到 5%。" }
+        ],
+        idealWeights: { med: 25, ci: 35, ltc: 10, life: 25, sav: 5 },
+        shockEvent: {
+          title: "⚡ 投保後第 5 年：男主人 41 歲確診「第三期肺腺癌」",
+          desc: "需進行胸腔微創達文西手術（自費醫材 28 萬），後續接受為期 18 個月的新型口服標靶與免疫療法（自費藥費 212 萬），並留職停薪休養 1.5 年（薪資損失 180 萬），家庭瞬間面臨高達 420 萬元的財務黑洞！",
+          totalLossMan: 420,
+          pillarMaxCover: { med: 90, ci: 340, ltc: 40, life: 120, sav: 15 }
+        },
+        pillarExplain: {
+          med: "【實支實付醫療（建議 25%）】：直接報銷達文西微創手術與住院期間 28 萬元的高額自費醫材雜費。",
+          ci: "【重大傷病與防癌一次金（建議 35% ⭐本案最關鍵）】：領取重大傷病卡即一次性理賠 250～300 萬現金，免收集住院收據，直接支付免住院標靶藥物與留職停薪期間的房貸生活費！",
+          ltc: "【失能與長照（建議 10%）】：配置基本意外與疾病失能附約，防範極端併發症風險。",
+          life: "【定期壽險（建議 25% ⭐鎖住1,500萬房貸）】：用極低保費配置 1,000 萬以上 20 年期定期壽險，確保萬一發生最壞狀況，房子留給妻小而非留給銀行。",
+          sav: "【儲蓄理財（建議 ≤ 5%）】：三明治房貸族預算有限，若把 10 萬預算拿去買儲蓄險，一旦罹癌將面臨高達 380 萬的自掏腰包破產缺口！"
+        },
+        actionPlaybook: {
+          rightWho: "36 歲男主人與掌握家庭帳務之太太（雙向共同面談，避免先生單方面說回去問老婆）。",
+          rightTime: "新居落成剛開始繳房貸滿半年、或年度公司健檢報告出爐當週。",
+          rightOffer: "拿出「舊保單住院日額 vs. 現代標靶治療 200 萬自費缺口對照表」，以一年 10 萬預算完成「300萬重大傷病＋雙實支＋1,000萬定期壽險」防護網。",
+          rightSop: "先讚美媽媽當年買的終身日額有基本打底 ➔ 點出醫療科技已改為高自費短住院 ➔ 展示肺腺癌標靶藥物真實收據 ➔ 鎖定 20 年房貸責任期完成簽單。"
+        },
+        personas: [
+          { avatar: "👩‍👦", name: "保戶太太 林小姐", quote: "當初先生本來想買儲蓄險，還好顧問堅持幫他規劃 300 萬重大傷病一次金跟實支實付，這筆理賠金直接救了我們全家的房子！" },
+          { avatar: "👨‍⚕️", name: "腫瘤科主治醫師", quote: "現在最好的抗癌標靶藥跟免疫療法幾乎都不用住院，有『重大傷病一次金』的病患才能毫無後顧之憂用最好的藥！" },
+          { avatar: "🏦", name: "房貸銀行行員", quote: "看過太多竹科家庭因為男主人倒下繳不出房貸被迫賣房，有把定期壽險跟重傷保額做足的家庭真的很有遠見。" }
+        ],
+        takeaway: "【三明治家庭健檢公式】面對高房貸與育兒責任期，嚴禁把有限預算塞進低槓桿儲蓄險！必須以「重大傷病一次金（扛標靶藥與薪資中斷）＋ 實支實付（扛手術自費）＋ 定期壽險（鎖房貸餘額）」建構鐵三角。"
+      },
+      {
+        id: 2,
+        chapter: "ch1",
+        tag: "Case 2・自營商與外送斜槓族",
+        profileTitle: "🛵 29歲自由接案攝影師（斜槓跑外送・手停口停族）",
+        annualBudgetMan: 6,
+        desc: "29 歲單身青年，平時接商業攝影案，離峰時段騎機車跑外送平台維持現金流，平均月收入約 6.5 萬元，但需每月孝親費 1.5 萬給單親媽媽。年繳保費預算 6 萬元。",
+        signals: [
+          { icon: "🛵", type: "職業暴露風險訊號", title: "每日騎車穿梭雙北車陣逾 4 小時", detail: "交通事故發生率是一般內勤上班族的 6.8 倍，尤其嚴重車禍導致之「粉碎性骨折自費鋼板」與「神經受損失能」風險極高。" },
+          { icon: "⚠️", type: "社會保險缺口訊號", title: "無雇主職災補償、手停口停零底薪", detail: "自由工作者一旦住院或復健休養半年，不僅收入瞬間歸零，連給單親媽媽的孝親費都會中斷。" },
+          { icon: "💬", type: "客戶認知迷思訊號", title: "以為「有買機車強制險＋團保意外險」就萬無一失", detail: "不知強制險不賠自己摔車，且一般意外險對「疾病致殘」或「長期復健無法工作之薪資補償」保障極為有限。" }
+        ],
+        idealWeights: { med: 35, ci: 15, ltc: 35, life: 10, sav: 5 },
+        shockEvent: {
+          title: "⚡ 投保後第 3 年：雨天閃避違規車輛發生嚴重車禍（下肢神經受損伴隨失能）",
+          desc: "住院進行 3 次脊椎與骨盆重建手術（自費鈦合金骨板與高階醫材 45 萬），且因下肢運動功能障礙需長期復健與專人照護，長達 5 年無法從事攝影與外送工作（收入中斷與照護費合計 315 萬），總財務衝擊達 360 萬元！",
+          totalLossMan: 360,
+          pillarMaxCover: { med: 110, ci: 40, ltc: 250, life: 30, sav: 10 }
+        },
+        pillarExplain: {
+          med: "【實支實付醫療＋意外醫療（建議 35% ⭐關鍵）】：全額報銷車禍住院期間高達 45 萬元的鈦合金骨板、人工韌帶與自費病房差額。",
+          ci: "【重大傷病一次金（建議 15%）】：提供重大創傷或急性疾病之緊急週轉金。",
+          ltc: "【失能與意外扶助險（建議 35% ⭐本案最關鍵）】：解決「人沒走、但卻再也無法工作」的致命痛點！透過失能一次金與每月失能生活扶助金，連續多年補貼本薪與孝親費。",
+          life: "【定期壽險（建議 10%）】：配置 300 萬定期壽險指定單親媽媽為受益人，守護母親晚年。",
+          sav: "【儲蓄理財（建議 ≤ 5%）】：收入波動的自由業若將資金鎖死在儲蓄險，車禍發生時連 45 萬自費鋼板都付不出來！"
+        },
+        actionPlaybook: {
+          rightWho: "29 歲手停口停之自營商、SOHO 族、外送員、業務人員或新創小老闆。",
+          rightTime: "剛換新機車、剛開始接案報稅、或看到同業車禍新聞討論時。",
+          rightOffer: "主打「每天不到 165 元的『薪水保護罩』」：高雜費實支實付（賠自費鋼板）＋ 失能生活扶助金（每月替你發薪水給自己和媽媽）。",
+          rightSop: "詢問『如果明天手腳骨折休養 6 個月，誰幫你付房租跟媽媽的生活費？』➔ 破除強制險迷思 ➔ 配置雙實支＋高額失能意外險。"
+        },
+        personas: [
+          { avatar: "📸", name: "29歲 攝影師 阿哲", quote: "車禍當下聽到醫生說自費骨板要 40 幾萬、而且兩年不能扛相機，我差點在病床上崩潰，好險實支實付跟失能扶助金每個月準時入帳！" },
+          { avatar: "👵", name: "阿哲的單親媽媽", quote: "兒子出車禍我照顧他都來不及了，還好保險公司每個月都有失能扶助金匯進來，我們母子才不用去借高利貸。" },
+          { avatar: "🦴", name: "骨科手術主治醫師", quote: "車禍外傷最花錢的就是自費鎖定鋼板跟術後復健，實支實付雜費額度有沒有做到 30 萬以上差非常多！" }
+        ],
+        takeaway: "【自營商與斜槓族健檢公式】沒有底薪、手停口停的族群，最怕的不是死亡，而是「活著卻失去工作能力」！務必重壓「高雜費實支實付（賠自費骨材）＋ 失能扶助金（替代每月薪資）」。"
+      },
+      {
+        id: 3,
+        chapter: "ch1",
+        tag: "Case 3・準退休熟齡夫妻健檢",
+        profileTitle: "🍂 54歲準退休夫妻（房貸已清・恐懼長照拖累子女）",
+        annualBudgetMan: 16,
+        desc: "54 歲中小企業部門主管夫妻，房貸已於去年全數清償，獨生女剛出社會工作。夫妻手邊有約 800 萬退休存款，年繳保費預算 16 萬元。最擔心老後生病或失智，把 800 萬老本燒光還拖累女兒。",
+        signals: [
+          { icon: "🏥", type: "家庭照護創傷訊號", title: "剛經歷照顧中風失智公公 8 年、燒掉 500 萬之痛", detail: "太太親身經歷請外籍看護、買尿布營養品與無障礙改裝每月花費 5.5 萬元，深知『一人倒下、全家垮台』的恐怖。" },
+          { icon: "🩺", type: "熟齡體況前兆訊號", title: "先生健檢出現輕度高血壓與高血脂紅字", detail: "54 歲正處於最後黃金可承保年齡，若再拖 3 年發展成糖尿病或心血管病變，長照與醫療險將面臨拒保或高額加費！" },
+          { icon: "📉", type: "保障結構過期訊號", title: "既有保單皆為 75 歲就到期的舊型附約", detail: "台灣人平均餘命超過 80 歲，且 75 歲以後才是失智與長照發生率最高峰，舊附約在 75 歲斷保將造成晚年裸奔。" }
+        ],
+        idealWeights: { med: 30, ci: 15, ltc: 40, life: 0, sav: 15 },
+        shockEvent: {
+          title: "⚡ 投保後第 12 年：先生 66 歲突發「腦中風合併半身癱瘓與血管性失智」",
+          desc: "急性期住院與自費神經復健花費 60 萬，出院後需聘請全天候看護與長照耗材（每月 5.5 萬元 × 持續照護 8 年 ＝ 528 萬），合計高達 588 萬元的漫長照護支出！",
+          totalLossMan: 588,
+          pillarMaxCover: { med: 120, ci: 90, ltc: 480, life: 0, sav: 80 }
+        },
+        pillarExplain: {
+          med: "【高齡續保實支實付（建議 30%）】：選擇可續保至 80～85 歲之實支實付，支應中風急性期住院與高階自費復健療程。",
+          ci: "【重大傷病一次金（建議 15%）】：提供中風初期黃金復健期與居家無障礙空間改造的第一筆百萬元急用金。",
+          ltc: "【失能與長照扶助險（建議 40% ⭐本案最關鍵）】：針對腦中風與失智狀態，每月穩定給付 4～5 萬元長照扶助金長達 10 年以上，徹底守住夫妻 800 萬退休老本，不花女兒一毛錢！",
+          life: "【定期壽險（建議 0%～5%）】：房貸已清且女兒已成年獨立，無需再花保費買高槓桿定期壽險。",
+          sav: "【退休現金流理財（建議 15%）】：適度配置穩健型退休年金或分紅保單，創造活到老領到老的被動現金流。"
+        },
+        actionPlaybook: {
+          rightWho: "50～58 歲房貸已清、有親人長照經驗、準備規劃退休防護網之熟齡夫妻。",
+          rightTime: "剛送走家中長輩、或孩子剛大學畢業出社會（家庭責任轉換期）之時間點。",
+          rightOffer: "「不留負擔給孩子的尊嚴老後計畫」：將過去繳房貸的錢，轉化為每月 5 萬元的長照看護帳戶＋85歲高齡實支醫療。",
+          rightSop: "同理照顧公公 8 年的辛勞 ➔ 檢視舊醫療附約只保到 75 歲的斷崖缺口 ➔ 把握 54 歲體況尚可承保之最後黃金窗完成核保。"
+        },
+        personas: [
+          { avatar: "👩‍🦳", name: "保戶 陳太太", quote: "以前照顧公公 8 年把我跟先生折磨到快崩潰，當先生中風那一刻，看到長照險每個月匯入 5 萬看護費，我知道我們沒有拖累女兒的人生！" },
+          { avatar: "👩‍💼", name: "剛出社會的獨生女", quote: "謝謝爸媽在 54 歲時聽從顧問建議做好長照規劃，讓我能安心在台北打拼事業，不用被迫辭職回家換尿布。" },
+          { avatar: "🏥", name: "長照機構社工師", quote: "台灣長照平均時間長達 7.3 年，靠存款絕對會坐吃山空，唯有『按月給付的長照失能險』才能提供源源不絕的看護現金流！" }
+        ],
+        takeaway: "【準退休熟齡健檢公式】50 歲後房貸已清，壽險需求歸零，最大黑天鵝是「長達 8 年、燒光 500 萬老本的失智與長照」！務必在體況惡化前重壓「長照失能險 ＋ 高齡續保實支實付」。"
+      },
+      {
+        id: 4,
+        chapter: "ch1",
+        tag: "Case 4・高資產企業主稅務傳承",
+        profileTitle: "🏛️ 62歲傳產企業主（身價 1.8 億・不動產占比過高與遺產稅危機）",
+        annualBudgetMan: 200,
+        desc: "62 歲精密機械廠老闆，名下資產總值 1.8 億元（含廠房與雙北店面不動產 1.65 億，銀行定存現金僅 1,500 萬）。育有一子一女（兒子接班工廠、女兒旅居國外），年繳保費規劃預算為 200 萬元。",
+        signals: [
+          { icon: "🏛️", type: "稅務流動性風險訊號", title: "預估遺產稅高達 2,200 萬、但帳上現金僅 1,500 萬", detail: "依現行遺產稅率（10%~20%），企業主身故後家屬須在限期內以『現金』繳清 2,200 萬遺產稅才能繼承過戶，現金不足將導致店面被賤價法拍或實物抵繳！" },
+          { icon: "⚖️", type: "家族爭產前兆訊號", title: "兒子要廠房、女兒要現金，傳統均分將導致工廠分裂", detail: "若未透過保單『指定受益人』創造大額免稅或專款專用現金給女兒，女兒一旦主張不動產共有或特留分，將嚴重衝擊兒子工廠經營權。" },
+          { icon: "🏥", type: "VIP 高端醫療訊號", title: "企業主看病堅持住頂尖私密單人房與海外質子治療", detail: "一般健保房無法滿足企業主隱私需求，需配置高日額私密病房與海外高階防癌醫療保障。" }
+        ],
+        idealWeights: { med: 10, ci: 5, ltc: 5, life: 25, sav: 55 },
+        shockEvent: {
+          title: "⚡ 投保後第 8 年：企業主 70 歲因心肌梗塞突發辭世（啟動 1.8 億遺產稅核課與家族分產）",
+          desc: "國稅局核定應納遺產稅高達 2,250 萬元，且旅居國外的女兒要求立即分得 4,000 萬現金才願放棄廠房繼承權，家族瞬間需要高達 6,250 萬元的即期免凍結現金流！",
+          totalLossMan: 6250,
+          pillarMaxCover: { med: 100, ci: 80, ltc: 50, life: 2200, sav: 4500 }
+        },
+        pillarExplain: {
+          med: "【高端 VIP 醫療（建議 10%）】：配置高日額單人房與高階自費醫療，滿足企業主生前尊榮就醫品質。",
+          ci: "【重大傷病（建議 5%）】：作為基礎高端防癌補強（企業主自身已有充足現金支應一般醫療）。",
+          ltc: "【尊榮長照（建議 5%）】：預防企業主晚年失智導致公司印鑑與資產被凍結。",
+          life: "【高槓桿傳承終身壽險（建議 25% ⭐預留稅源）】：利用壽險槓桿放大資產，身故保險金不計入遺產等待分割，家屬可直接領出 2,250 萬現金去國稅局完稅，保住全部店面與廠房！",
+          sav: "【高資產傳承分紅/利變保單（建議 55% ⭐本案最關鍵）】：面對身價 1.8 億的高資產族，第 5 項『傳承儲蓄與分紅終身保單』才是主角！透過指定受益人與分期定期給付，把廠房留給兒子、保單現金留給女兒，完美實現『資產傳承不傳怨』！"
+        },
+        actionPlaybook: {
+          rightWho: "55～70 歲名下擁有大量不動產或未上市股權、現金占比低於 15% 之企業主與高資產人士。",
+          rightTime: "會計師剛結算完年度財報、政府調整遺贈稅/房地合一稅新聞發布、或企業主準備啟動二代接班時。",
+          rightOffer: "「2,250 萬遺產稅源預留 ＋ 兄妹和諧傳承計畫」：用保單創造『免等待遺產分割的即期現金池』，讓兒子安心接廠、女兒開心拿現金。",
+          rightSop: "先幫企業主做『假設明天身故之遺產稅現金缺口試算表』➔ 點出 1,500 萬現金不夠繳 2,250 萬遺產稅的法拍危機 ➔ 結合會計師規劃要保人、被保險人與指定受益人架構。"
+        },
+        personas: [
+          { avatar: "👨‍💼", name: "接班長子 張總經理", quote: "爸爸走得太突然，好險當年有規劃高倍數傳承保單，理賠金兩週就下來讓我們繳清 2,250 萬遺產稅，妹妹也順利拿到她的現金份額，工廠完全沒受影響！" },
+          { avatar: "👩‍⚖️", name: "家族稅務會計師", quote: "台灣老闆最常犯的錯就是滿手土地卻沒留繳稅現金！透過正確的要被保人規劃與指定受益人，這張保單發揮了最強的資產保全威力。" },
+          { avatar: "🏦", name: "私人銀行財管處長", quote: "在 Case 1~3 賣儲蓄險是錯置資源，但在 Case 4 高資產傳承局，把 80% 預算放在高保障傳承分紅與終身壽險才是真正的頂尖顧問！" }
+        ],
+        takeaway: "【高資產傳承健檢公式】一般家庭賣儲蓄險會害慘客戶，但面對「滿手不動產、缺乏繳稅現金」的高資產企業主，重壓「預留稅源終身壽險 ＋ 指定受益人傳承保單」才是解決遺產稅法拍與爭產危機的唯一正解！"
+      },
+
+      // ==================== 第二章：進階客群篇 (Case 5 ~ Case 8 新擴充) ====================
+      {
+        id: 5,
+        chapter: "ch2",
+        tag: "Case 5・不婚頂客／單身貴族健檢",
+        profileTitle: "🥂 39歲外商行銷總監（不婚頂客族・迷信買 ETF 不用買保險）",
+        annualBudgetMan: 12,
+        desc: "39 歲外商女性高階主管（年收 160 萬），與伴侶約定不婚不生（無子女負擔，父母亦有退休金）。平時熱衷投資高股息 ETF（已存 450 萬），認為「把錢拿去買 ETF 配息就夠付醫藥費了」，年繳保費預算 12 萬元。",
+        signals: [
+          { icon: "📉", type: "資產被迫變現風險訊號", title: "股市空頭與重病往往同時發生", detail: "若在股市崩跌 35% 期間突發重病或失能，被迫在最低點賣出 ETF 籌措醫藥與看護費，將導致退休資產永久性腰斬！" },
+          { icon: "🛏️", type: "單身獨老照護訊號", title: "無伴侶法定義務與無子女可照顧", detail: "未來若因疾病失能或早發性退化，100% 必須仰賴高階專業看護機構或養生村（每月花費高達 6.5 萬元以上）。" },
+          { icon: "✨", type: "尊榮醫療品質訊號", title: "極度重視隱私，住院非特等單人房不住", detail: "醫學中心特等單人房每日差額高達 6,000～9,000 元，且偏好最新自費微創無痕手術。" }
+        ],
+        idealWeights: { med: 30, ci: 25, ltc: 35, life: 0, sav: 10 },
+        shockEvent: {
+          title: "⚡ 投保後第 8 年：47 歲罹患「早發性帕金森氏症合併重度憂鬱與行動失能」（同年逢全球股災 ETF 跌 38%）",
+          desc: "無法繼續擔任外商高壓主管被迫離職，自費深部腦刺激手術（DBS）與高階單人病房花費 85 萬，後續需入住高階專業照護機構與復健長達 8 年（每月 5 萬 × 96 個月 ＝ 480 萬），總計面臨 565 萬元財務衝擊！",
+          totalLossMan: 565,
+          pillarMaxCover: { med: 140, ci: 150, ltc: 320, life: 0, sav: 40 }
+        },
+        pillarExplain: {
+          med: "【高日額＋高雜費實支實付（建議 30% ⭐關鍵）】：全額報銷腦部自費微創醫材與每日 8,000 元的特等單人病房差額，維持單身貴族尊嚴。",
+          ci: "【重大傷病一次金（建議 25%）】：確診即領 200 萬現金，讓她在全球股災期間「完全不必賤價賣出半張 ETF」！",
+          ltc: "【失能與長照扶助險（建議 35% ⭐本案最關鍵）】：不婚不生族沒有孩子幫你推輪椅！每月穩定給付 5 萬元失能扶助金，就是單身貴族最忠實的「契約養老院」。",
+          life: "【定期/終身壽險（建議 0%）】：注意！無房貸、無子女、父母不靠她養，買身故才賠的壽險對單身貴族毫無意義！投壽險等於浪費預算。",
+          sav: "【醫療專款帳戶理財（建議 10%）】：可小比例配置變額年金或醫療預備金。"
+        },
+        actionPlaybook: {
+          rightWho: "30～48 歲高收入單身貴族、不婚族、頂客族（DINKs），熱衷股票/ETF 理財者。",
+          rightTime: "股市劇烈震盪期、身邊同齡朋友住院開刀討論、或規劃凍卵/高階健檢時。",
+          rightOffer: "「保護妳的 ETF 不被迫認賠殺出的『資產防彈衣』」：零壽險純享版（高階單人房實支 ＋ 200萬重傷 ＋ 每月5萬失能長照俸）。",
+          rightSop: "絕不否定客戶買 ETF 的聰明決策 ➔ 提問『如果剛好遇到 2022 股災大跌 30% 時需要 300 萬醫療與長照費，妳捨得在最低點砍股票嗎？』➔ 以配息的 20% 建立失能與重傷防線。"
+        },
+        personas: [
+          { avatar: "👩‍💼", name: "39歲 外商總監 薇薇安", quote: "我以前覺得買保險是笨蛋，直到生病那年剛好遇到股災，還好有重大傷病一次金跟每月 5 萬失能險，讓我一張 ETF 都不用賤賣，還能住最好的養生村！" },
+          { avatar: "📈", name: "證券財富管理顧問", quote: "真正的投資高手都懂『資產配置要留保險防線』，因為疾病從來不會挑股市多頭的時候才來！" },
+          { avatar: "🏥", name: "醫學中心 VIP 病房護理長", quote: "單身病患住院最怕沒人照顧又要住吵雜的健保房，有高日額實支跟看護險的單身貴族，連請一對一特別護士都毫不手軟！" }
+        ],
+        takeaway: "【不婚頂客與單身貴族公式】沒有繼承人要照顧，壽險權重請直接歸零！把預算 90% 集中在「活著自己用的保障（失能長照 35% ＋ 高階單人房實支 30% ＋ 重大傷病 25%）」，作為保護投資部位不被迫低點變現的防彈衣。"
+      },
+      {
+        id: 6,
+        chapter: "ch2",
+        tag: "Case 6・新手爸媽之新生兒罐頭保單",
+        profileTitle: "👶 0歲剛滿月健康男寶寶（阿公阿嬤催買終身還本醫療險迷思）",
+        annualBudgetMan: 3,
+        desc: "新手爸媽剛迎接第一胎男寶寶滿月（21項新生兒篩檢全數正常）。家中阿公阿嬤拿著傳統業務員寫的「年繳 3.2 萬終身還本醫療險（住院一天賠 1,500 元、85歲沒用到退還保費）」逼爸媽簽名。爸媽設定寶寶保費預算上限為年繳 3 萬元。",
+        signals: [
+          { icon: "🍼", type: "黃金投保時間窗訊號", title: "滿月零體況、保費最便宜但幼兒住院率極高", detail: "0～4 歲嬰幼兒因托嬰中心群聚感染（腸病毒、RSV呼吸道融合病毒、腺病毒）住院率高達 38%，每次住院父母至少需一人請假一週。" },
+          { icon: "👵", type: "長輩還本迷思訊號", title: "終身還本醫療險吃掉 95% 預算卻賠不到大風險", detail: "年繳 3 萬買終身還本住院日額，萬一寶寶發生兒童白血病（血癌）、川崎氏症或嚴重燒燙傷，理賠金不到 3 萬元，完全是『高保費低保障』災難！" },
+          { icon: "🔥", type: "幼兒三大極端黑天鵝訊號", title: "兒童癌症、罕見重大傷病與重大燒燙傷植皮", detail: "幼兒好奇心強易發生熱湯燙傷（自費人工敷料與植皮動輒 50 萬），且兒童血癌/腦瘤需母親辭職專心照護 2 年（家庭薪資損失逾百萬）。" }
+        ],
+        idealWeights: { med: 40, ci: 35, ltc: 20, life: 0, sav: 5 },
+        shockEvent: {
+          title: "⚡ 投保後第 3 年：寶寶 3 歲時確診「急性川崎氏症併發冠狀動脈瘤」並曾因打翻熱湯二度燒燙傷",
+          desc: "住院施打高劑量自費免疫球蛋白與單人隔離病房、燒燙傷自費除疤水凝膠敷料（合計醫療自費 35 萬），媽媽為照顧心臟受損的寶寶留職停薪 1 年（薪資損失 55 萬），家庭面臨 90 萬元財務支出！",
+          totalLossMan: 90,
+          pillarMaxCover: { med: 45, ci: 50, ltc: 25, life: 0, sav: 2 }
+        },
+        pillarExplain: {
+          med: "【高雜費雙實支實付（建議 40% ⭐本案核心）】：0 歲寶寶買實支實付極便宜！直接報銷幼兒單人隔離病房費、免疫球蛋白、自費疫苗併發症與父母請假之薪資補償。",
+          ci: "【兒童重大傷病與防癌一次金（建議 35% ⭐關鍵）】：川崎氏症、兒童癌症、罕見疾病一拿到重大傷病卡立刻理賠 200 萬現金，讓媽媽能安心留職停薪照顧寶寶 2 年！",
+          ltc: "【兒童意外失能與重大燒燙傷（建議 20%）】：補強幼兒跌倒骨折、誤食異物與高達數百萬保額之重大燒燙傷皮膚移植保障。",
+          life: "【壽險（建議 0%）】：依保險法第 107 條規定，未滿 15 歲孩童身故僅退還保費或加計利息（喪葬費上限 69 萬），無需配置一般壽險。",
+          sav: "【儲蓄還本（建議 ≤ 5%）】：把 3 萬元拿去買終身還本險，會讓寶寶在最需要高醫療雜費與重傷一次金的童年時期完全裸奔！"
+        },
+        actionPlaybook: {
+          rightWho: "28～38 歲剛懷孕滿 28 週之準爸媽，或寶寶剛出生滿月之新手父母。",
+          rightTime: "媽媽懷孕第 32 週（產前先做好保單健檢定案），寶寶出生報完戶口第 10 天立即送件！",
+          rightOffer: "「年繳 2.5 萬給寶寶 500 萬頂級防護網（新生兒黃金罐頭組合）」＋ 省下 1 萬元幫爸爸加買 500 萬定期壽險（因為爸爸才是寶寶最大的保險！）。",
+          rightSop: "拿出『終身還本險 vs. 兒童罐頭保單理賠金額對比表』讓數據說話 ➔ 化解阿公阿嬤還本迷思 ➔ 順勢檢視新手爸媽自身的家庭責任壽險缺口（一魚兩吃連帶簽單）！"
+        },
+        personas: [
+          { avatar: "🤱", name: "新手媽媽 小雅", quote: "好險當初顧問幫我擋下婆婆要買的 3 萬塊終身還本險！寶寶得川崎氏症拿到重大傷病卡直接賠了 150 萬，我才能安心留職停薪陪孩子度過難關！" },
+          { avatar: "👶", name: "小兒科主治醫師", quote: "去托嬰中心的小孩前兩年幾乎每個月都在發燒感冒，一旦肺炎或腸病毒住院，大家都搶著住單人房怕交叉感染，實支實付額度一定要做高！" },
+          { avatar: "👨‍👩‍👦", name: "新手爸爸 陳先生", quote: "顧問提醒我們『父母才是孩子最大的保險』，幫寶寶省下一萬五保費拿來買我自己的定期壽險，這才是最負責任的規劃！" }
+        ],
+        takeaway: "【新生兒保單黃金公式】幼兒保單年繳 2.5～3 萬就能封頂！嚴禁購買「高保費低保障的終身還本醫療」，必須 95% 集中於「高雜費實支實付 ＋ 兒童重大傷病/防癌一次金 ＋ 重大燒燙傷失能」，並順勢補強父母大人的壽險！"
+      },
+      {
+        id: 7,
+        chapter: "ch2",
+        tag: "Case 7・迷信公司團險之高壓醫護/科技族",
+        profileTitle: "🩺 35歲醫學中心護理師與科技業主管夫妻（迷信公司團險就夠了）",
+        annualBudgetMan: 9,
+        desc: "35 歲雙薪夫妻（太太為醫學中心資深護理師、先生為電子廠製程副理），年家庭總收入 220 萬。兩人都認為「我們公司團險福利超好、住院全賠，而且在自己醫院看病有員工眷屬優待」，因此年繳 9 萬預算只想買美元儲蓄險。",
+        signals: [
+          { icon: "🏢", type: "團險離職斷保訊號", title: "公司團險是「在職福利」而非「終身契約」", detail: "一旦罹患癌症或重大疾病需要留職停薪超過半年、或因病被資遣離職，公司團險將在最需要理賠的那一刻『瞬間失效且無法帶走』！" },
+          { icon: "💊", type: "院內自費不打折訊號", title: "醫院員工眷屬優待「不包含昂貴自費標靶與醫材」", detail: "醫院員工看病免掛號費、病房費打折，但面對原廠自費標靶藥物、達文西機械手臂耗材、免疫細胞療法（動輒 150～300 萬），藥廠與醫材商對員工一毛錢都不打折！" },
+          { icon: "🌙", type: "高壓輪班體況訊號", title: "夫妻長期日夜顛倒輪班、甲狀腺結節與胃潰瘍病史", detail: "醫護與科技業輪班族是年輕型癌症與腦心血管疾病最高風險群，一旦出現體況紅字想再買個人商業保險就會被批註除外。" }
+        ],
+        idealWeights: { med: 30, ci: 40, ltc: 15, life: 10, sav: 5 },
+        shockEvent: {
+          title: "⚡ 投保後第 6 年：先生 41 歲確診「晚期腎細胞癌」被迫留職停薪後離職（公司團險立即終止）",
+          desc: "進行達文西部分腎臟切除手術（自費耗材 32 萬），術後需長期服用雙標靶合併免疫療法藥物（院內無員工折扣，兩年自費藥費高達 228 萬），且因離職失去公司團險與薪資（損失 90 萬），總財務衝擊達 350 萬元！",
+          totalLossMan: 350,
+          pillarMaxCover: { med: 85, ci: 250, ltc: 45, life: 30, sav: 10 }
+        },
+        pillarExplain: {
+          med: "【個人可攜式實支實付（建議 30% ⭐離職不斷保）】：建立不隨換工作或離職而失效的個人醫療底盤，無縫銜接團險斷保後的住院自費缺口。",
+          ci: "【重大傷病與防癌一次金（建議 40% ⭐本案最關鍵）】：公司團險通常沒有高達 200～300 萬的重大傷病一次金！這筆現金直接解決「醫院員工也不打折的 228 萬自費標靶與免疫療法」！",
+          ltc: "【失能扶助險（建議 15%）】：保障因高壓過勞引發中風或失能之長期收入補償。",
+          life: "【定期壽險（建議 10%）】：補足公司團險定期壽險在離職後的家庭責任缺口。",
+          sav: "【儲蓄理財（建議 ≤ 5%）】：切勿因迷信團險而把個人預算全買儲蓄險，否則大病離職當天就是家庭財務裸奔的開始！"
+        },
+        actionPlaybook: {
+          rightWho: "28～45 歲任職於大型科技廠、外商、金控、公教或醫療院所，自認「公司團保福利很好」之白領與醫護人員。",
+          rightTime: "公司年度團險續保加選公告週、同仁申請留職停薪案例發生時、或考慮轉職跳槽前。",
+          rightOffer: "「帶得走的終身醫療底盤 ＋ 300萬院內自費標靶專用金」：專補團險『離職即失效』與『不賠免住院標靶藥』兩大死穴。",
+          rightSop: "先肯定客戶公司福利確實頂尖 ➔ 拋出靈魂提問：『學姐，如果同仁因為罹癌需要留職停薪兩年休養，他的公司團保還在嗎？院內的免疫療法員工有打折嗎？』➔ 順勢配置個人重傷一次金與實支實付。"
+        },
+        personas: [
+          { avatar: "👩‍⚕️", name: "35歲 醫學中心護理師 雅婷", quote: "在醫院工作十年，我居然忘了『生重病離職團保就會停掉』！而且先生吃的自費免疫標靶藥醫院根本不打折，好險當年有買個人重大傷病 300 萬！" },
+          { avatar: "💻", name: "41歲 科技廠副理 陳先生", quote: "以前覺得公司團險住院全賠就無敵了，生病被迫離開職場那一刻才體會到，只有自己名下的商業保單才是永遠不會背叛你的依靠。" },
+          { avatar: "📋", name: "企業 HR 人資主管", quote: "我們常提醒員工，公司團險只是在職期間的額外加分，千萬不能拿來取代個人的核心重大傷病與醫療險！" }
+        ],
+        takeaway: "【破解團險迷思公式】面對醫護與大企業員工，切記點破兩大盲點：「① 生大病被迫離職時，公司團險會瞬間斷保；② 最貴的標靶藥與高階醫材，免住院且員工不打折」！務必重壓「個人重大傷病一次金 40% ＋ 可攜式實支實付 30%」。"
+      },
+      {
+        id: 8,
+        chapter: "ch2",
+        tag: "Case 8・上有老下有小之雙薪夾心族",
+        profileTitle: "🥪 46歲雙薪中階主管夾心族（下有升學雙子・上有初老失智雙親）",
+        annualBudgetMan: 15,
+        desc: "46 歲雙薪夫妻（家庭年收 200 萬），下有兩名正值國中與高中升學階段的孩子，上有 76 歲開始出現輕微失智健忘的母親。10 年前買的一張年繳 10 萬元儲蓄險今年剛好滿期，夫妻正猶豫要不要把這筆預算再買下一張儲蓄險，年繳預算 15 萬元。",
+        signals: [
+          { icon: "🥪", type: "上下夾擊現金流訊號", title: "未來 8 年是子女大學學費與長輩照護重疊最高峰", detail: "夫妻兩人就像家庭的兩根頂樑柱，此時家庭容錯率為 0%，任何一人倒下都會同時摧毀孩子的升學路與長輩的養老金。" },
+          { icon: "❤️‍🩹", type: "中年心血管前兆訊號", title: "46 歲先生近期常感胸悶心悸、內臟脂肪與膽固醇偏高", detail: "45～55 歲男性為急性心肌梗塞、主動脈剝離與腦中風最高發年齡段，一旦發作往往伴隨高昂手術費與長期半失能。" },
+          { icon: "🔄", type: "滿期保費轉置訊號", title: "舊儲蓄險剛滿期釋出每年 10 萬保費空間，但自身重傷保額僅 30 萬", detail: "過去十年把錢都鎖在儲蓄險，導致夫妻 46 歲了身上的重大傷病與失能保障幾乎空白，此刻正是『棄儲蓄、轉保障』的最後黃金窗口！" }
+        ],
+        idealWeights: { med: 25, ci: 30, ltc: 25, life: 15, sav: 5 },
+        shockEvent: {
+          title: "⚡ 投保後第 5 年：先生 51 歲突發「急性主動脈剝離併發中度肢體失能」（大兒子同年考上私立醫學院）",
+          desc: "緊急進行複合式人工血管置換手術與加護病房自費醫材（65 萬），術後因體力與肢體受限無法繼續擔任高壓管理職，需復健與半日照護長達 6 年（家庭薪資短少與照護支出 315 萬），加上兒子醫學院學費生活費（70 萬），總衝擊達 450 萬元！",
+          totalLossMan: 450,
+          pillarMaxCover: { med: 110, ci: 160, ltc: 160, life: 60, sav: 15 }
+        },
+        pillarExplain: {
+          med: "【高雜費實支實付（建議 25%）】：支應主動脈剝離緊急大手術中高達 65 萬元的自費人工血管、止血凝膠與加護病房差額。",
+          ci: "【重大傷病與心血管一次金（建議 30% ⭐核心）】：急性主動脈剝離或大面積腦中風領取重大傷病卡或符合嚴重特定傷病即賠 200 萬現金，穩住家庭第一年急用金與孩子大學學費！",
+          ltc: "【失能與長照扶助險（建議 25% ⭐核心）】：解決先生 51 歲後無法全職工作、每年短少百萬收入的長期缺口。",
+          life: "【10年期定期壽險（建議 15% ⭐護學專案）】：用極低保費配置 10 年期（46～56歲）定期壽險，精準護航兩個孩子讀完大學研究所的最關鍵十年！",
+          sav: "【儲蓄理財（建議 ≤ 5%）】：已經有一張滿期儲蓄險當緊急預備金了！若把釋出的 15 萬預算又拿去買新儲蓄險，先生倒下時大兒子連醫學院都無法去讀！"
+        },
+        actionPlaybook: {
+          rightWho: "42～52 歲上有高齡父母、下有國高中子女，且手中有舊儲蓄險即將滿期或繳費期滿之夾心族夫妻。",
+          rightTime: "舊儲蓄險最後一年繳費期滿通知寄達時、或孩子準備升高中/大學之家庭財務盤點期。",
+          rightOffer: "「舊儲蓄滿期不續存・無痛轉置『護子護老雙核心防護網』」：不用多掏一毛錢，直接把原本繳儲蓄險的預算轉成夫妻雙人 300 萬重傷＋失能＋10年護學壽險。",
+          rightSop: "恭喜客戶舊儲蓄險順利滿期存下一桶金 ➔ 繪製『未來 10 年孩子升學＋父母初老之家庭責任最高峰曲線圖』➔ 將釋出的保費預算 95% 轉置為中年重症與失能防護。"
+        },
+        personas: [
+          { avatar: "👨‍🎓", name: "考上醫學院的大兒子", quote: "高三放榜那週爸爸突然主動脈剝離倒下，我原本打算放棄讀醫學院去打工，是爸爸保單賠出來的重大傷病跟失能扶助金，讓我能安心去報到！" },
+          { avatar: "👩‍💼", name: "46歲 夾心族太太 王大姐", quote: "五年前舊儲蓄險到期時，我差點又聽銀行理專的話買下一張儲蓄險，好險保險顧問勸我把預算轉成先生的重傷跟失能險，救了我們一家老小！" },
+          { avatar: "❤️‍🩹", name: "心臟血管外科主任", quote: "主動脈剝離跟心肌梗塞最常發生在 45～55 歲的家庭經濟支柱身上，手術自費醫材跟術後復健期非常漫長，有雙實支跟重傷失能險真的差太多！" }
+        ],
+        takeaway: "【雙薪夾心族滿期轉置公式】45 歲夾心族千萬別把滿期釋出的保費又鎖進新儲蓄險！面對上有老下有小的「零容錯十年」，必須無痛轉置為「重大傷病 30% ＋ 失能長照 25% ＋ 實支醫療 25% ＋ 10年期護學定期壽險 15%」。"
+      }
+    ];
+
+    /******************************************************************
+     * 4. Web Audio API 零外部依賴音效合成器
+     ******************************************************************/
+    let audioCtx = null;
+    let isSoundMuted = false;
+
+    function ensureAudioContext() {
+      if (isSoundMuted) return null;
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSoundEffect(type) {
+      const ctx = ensureAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+
+      if (type === 'start') {
+        [523.25, 659.25, 783.99].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+          gain.gain.setValueAtTime(0.18, now + idx * 0.09);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.18);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.09);
+          osc.stop(now + idx * 0.09 + 0.19);
+        });
+      } else if (type === 'tick') {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, now);
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.05);
+      } else if (type === 'urgent') {
+        [1046.5, 1318.5].forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.11);
+          gain.gain.setValueAtTime(0.14, now + idx * 0.11);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.11 + 0.09);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.11);
+          osc.stop(now + idx * 0.11 + 0.1);
+        });
+      } else if (type === 'finish') {
+        [261.63, 329.63, 392.00, 523.25].forEach((freq) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.0008, now + 1.4);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 1.45);
+        });
+      }
+    }
+
+    function toggleSoundMute() {
+      isSoundMuted = !isSoundMuted;
+      const btn = document.getElementById('soundMuteBtn');
+      if (isSoundMuted) {
+        btn.textContent = "🔇 音效：靜音";
+        btn.className = "text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 transition";
+      } else {
+        btn.textContent = "🔊 音效：開啟";
+        btn.className = "text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 transition";
+        playSoundEffect('tick');
+      }
+    }
+
+    /******************************************************************
+     * 5. 全域狀態管理與 Firebase 實例
+     ******************************************************************/
+    let appInstance = null;
+    let auth = null;
+    let db = null;
+    let currentUserUid = "local_" + Math.random().toString(36).substring(2, 8);
+    let isFirebaseConnected = false;
+    let unsubscribeTeams = null;
+    let unsubscribeRoomMeta = null;
+
+    let currentChapterFilter = 'all'; // 'ch1' | 'ch2' | 'all'
+    let currentCaseIndex = 0;
+    let weights = { med: 25, ci: 35, ltc: 10, life: 25, sav: 5 };
+    let cloudTeamsCache = [];
+    let latestReportData = null;
+
+    let timerInterval = null;
+    let timerTotalSeconds = 60;
+    let timerEndTimestamp = 0;
+
+    // SaaS 會員與管理員全域狀態
+    let currentMemberProfile = null;
+    let allUsersCache = [];
+    let unsubscribeUsersList = null;
+    let isRegisteringProcess = false;
+    let latestAdminAiReportText = "";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomFromUrl = urlParams.get('room');
+
+    let playerState = {
+      roomId: roomFromUrl || localStorage.getItem('ins_roomId') || "INS-2026",
+      teamName: localStorage.getItem('ins_teamName') || ("第 " + Math.floor(Math.random() * 15 + 1) + " 通訊處：頂尖顧問隊"),
+      role: localStorage.getItem('ins_role') || "manager",
+      completedCases: {},
+      geminiApiKey: localStorage.getItem('tp_geminiKey') || ""
+    };
+
+    /******************************************************************
+     * 6. 60 秒決策倒數計時器與 QR Code 投影控制
+     ******************************************************************/
+    async function startClassroomTimer(seconds = 60) {
+      ensureAudioContext();
+      playSoundEffect('start');
+      const endAt = Date.now() + seconds * 1000;
+      timerTotalSeconds = seconds;
+      activateLocalCountdown(endAt, seconds);
+
+      if (db && isFirebaseConnected) {
+        try {
+          await setDoc(doc(db, 'ins_rooms', playerState.roomId), {
+            timerEndAt: endAt,
+            timerDuration: seconds,
+            timerActive: true,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        } catch (e) {
+          console.warn("計時器同步雲端失敗：", e);
+        }
+      }
+    }
+
+    async function stopClassroomTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      resetTimerVisuals(60);
+
+      if (db && isFirebaseConnected) {
+        try {
+          await setDoc(doc(db, 'ins_rooms', playerState.roomId), {
+            timerEndAt: 0,
+            timerActive: false,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        } catch (e) {
+          console.warn("重置計時器失敗：", e);
+        }
+      }
+    }
+
+    function activateLocalCountdown(endAtMs, totalSec = 60) {
+      clearInterval(timerInterval);
+      timerEndTimestamp = endAtMs;
+      timerTotalSeconds = totalSec || 60;
+
+      const globalBanner = document.getElementById('globalTimerBanner');
+      globalBanner.classList.remove('hidden');
+      globalBanner.classList.add('flex');
+
+      const tickUpdate = () => {
+        const remainingMs = timerEndTimestamp - Date.now();
+        const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
+        renderTimerUI(remainingSec, timerTotalSeconds);
+
+        if (remainingSec > 10) {
+          playSoundEffect('tick');
+        } else if (remainingSec > 0 && remainingSec <= 10) {
+          playSoundEffect('urgent');
+        } else if (remainingSec <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          playSoundEffect('finish');
+        }
+      };
+
+      tickUpdate();
+      timerInterval = setInterval(tickUpdate, 1000);
+    }
+
+    function renderTimerUI(sec, totalSec) {
+      const mins = String(Math.floor(sec / 60)).padStart(2, '0');
+      const secs = String(sec % 60).padStart(2, '0');
+      const formatted = `${mins}:${secs}`;
+
+      const instDigits = document.getElementById('instructorTimerDigits');
+      const globalDigits = document.getElementById('globalTimerDigits');
+      const statusTag = document.getElementById('timerStatusTag');
+      const bar = document.getElementById('instructorTimerBar');
+      const warCard = document.getElementById('warRoomTimerCard');
+      const playerCard = document.getElementById('playerDecisionCard');
+
+      instDigits.textContent = formatted;
+      globalDigits.textContent = formatted;
+
+      const pct = Math.max(0, Math.min(100, (sec / totalSec) * 100));
+      bar.style.width = `${pct}%`;
+
+      if (sec === 0) {
+        instDigits.className = "text-4xl md:text-5xl font-black font-mono tracking-wider text-rose-500";
+        globalDigits.className = "text-base font-black font-mono text-rose-400";
+        statusTag.textContent = "⏰ 時間到！請鎖定配置準備壓力測試開獎";
+        statusTag.className = "text-xs px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/40";
+        warCard.classList.remove('timer-urgent');
+        playerCard.classList.remove('timer-urgent');
+      } else if (sec <= 10) {
+        instDigits.className = "text-4xl md:text-5xl font-black font-mono tracking-wider text-rose-400 scale-105 transition-transform";
+        globalDigits.className = "text-base font-black font-mono text-rose-400";
+        statusTag.textContent = `🔥 最後 ${sec} 秒衝刺催票中！`;
+        statusTag.className = "text-xs px-2 py-0.5 rounded bg-rose-500/30 text-rose-200 font-bold border border-rose-500/50";
+        bar.className = "h-full bg-rose-500 transition-all duration-300";
+        warCard.classList.add('timer-urgent');
+        playerCard.classList.add('timer-urgent');
+      } else {
+        instDigits.className = "text-4xl md:text-5xl font-black font-mono tracking-wider text-amber-400";
+        globalDigits.className = "text-base font-black font-mono text-amber-400";
+        statusTag.textContent = "⏳ 保單健檢配置進行中...";
+        statusTag.className = "text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30";
+        bar.className = "h-full bg-gradient-to-r from-amber-500 to-emerald-400 transition-all duration-300";
+        warCard.classList.remove('timer-urgent');
+        playerCard.classList.remove('timer-urgent');
+      }
+    }
+
+    function resetTimerVisuals(defaultSec = 60) {
+      const mins = String(Math.floor(defaultSec / 60)).padStart(2, '0');
+      const secs = String(defaultSec % 60).padStart(2, '0');
+      document.getElementById('instructorTimerDigits').textContent = `${mins}:${secs}`;
+      document.getElementById('instructorTimerDigits').className = "text-4xl md:text-5xl font-black font-mono tracking-wider text-white";
+      document.getElementById('timerStatusTag').textContent = "待命準備中";
+      document.getElementById('timerStatusTag').className = "text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold";
+      document.getElementById('instructorTimerBar').style.width = "100%";
+      document.getElementById('instructorTimerBar').className = "h-full bg-gradient-to-r from-amber-500 to-emerald-400 transition-all duration-300";
+      document.getElementById('warRoomTimerCard').classList.remove('timer-urgent');
+      document.getElementById('playerDecisionCard').classList.remove('timer-urgent');
+      document.getElementById('globalTimerBanner').classList.add('hidden');
+      document.getElementById('globalTimerBanner').classList.remove('flex');
+    }
+
+    function toggleQrModal() {
+      const modal = document.getElementById('qrModal');
+      const isHidden = modal.classList.contains('hidden');
+      if (isHidden) {
+        const baseUrl = window.location.href.split('?')[0];
+        const joinUrl = `${baseUrl}?room=${encodeURIComponent(playerState.roomId)}`;
+        const input = document.getElementById('qrUrlInput');
+        if (!input.value) input.value = joinUrl;
+        document.getElementById('qrModalRoomCode').textContent = playerState.roomId;
+        updateQrCodeImage();
+        renderQrModalTeamList(cloudTeamsCache);
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function updateQrCodeImage() {
+      const targetUrl = document.getElementById('qrUrlInput').value.trim() || window.location.href;
+      const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=10&data=${encodeURIComponent(targetUrl)}`;
+      document.getElementById('qrCodeImage').src = qrApi;
+    }
+
+    function copyJoinLink() {
+      const input = document.getElementById('qrUrlInput');
+      navigator.clipboard.writeText(input.value);
+      const btn = document.getElementById('copyLinkBtn');
+      btn.textContent = "✓ 已複製";
+      setTimeout(() => { btn.textContent = "複製連結"; }, 1800);
+    }
+
+    function renderQrModalTeamList(teams) {
+      const countEl = document.getElementById('qrModalTeamCount');
+      const container = document.getElementById('qrModalTeamBadges');
+      countEl.textContent = `${teams.length} 組已就緒`;
+
+      if (teams.length === 0) {
+        container.innerHTML = `<span class="text-xs text-slate-500">等待各通訊處同仁掃描 QR Code 進入房間...</span>`;
+        return;
+      }
+
+      container.innerHTML = teams.map(t => `
+        <span class="px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 ${
+          t.role === 'manager'
+            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+            : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+        }">
+          <span>${t.role === 'manager' ? '👔' : '🚀'}</span>
+          <span>${t.teamName}</span>
+        </span>
+      `).join('');
+    }
+
+    /******************************************************************
+     * 6.5 會員註冊、嚴格信箱驗證 (Double Opt-in)、RBAC 與管理後台
+     ******************************************************************/
+    function showAuthAlert(type, htmlMessage) {
+      const box = document.getElementById('authAlertBox');
+      box.classList.remove('hidden');
+      if (type === 'success') {
+        box.className = "p-4 rounded-2xl text-xs md:text-sm font-bold leading-relaxed border bg-emerald-950/80 border-emerald-500/60 text-emerald-300 shadow-lg";
+      } else {
+        box.className = "p-4 rounded-2xl text-xs md:text-sm font-bold leading-relaxed border bg-rose-950/80 border-rose-500/60 text-rose-300 shadow-lg";
+      }
+      box.innerHTML = htmlMessage;
+    }
+
+    function hideAuthAlert() {
+      const box = document.getElementById('authAlertBox');
+      if (box) box.classList.add('hidden');
+    }
+
+    function switchAuthTab(tab) {
+      hideAuthAlert();
+      const loginForm = document.getElementById('loginForm');
+      const regForm = document.getElementById('registerForm');
+      const resetForm = document.getElementById('resetForm');
+      const tabLogin = document.getElementById('authTabLogin');
+      const tabReg = document.getElementById('authTabRegister');
+      const spamBanner = document.getElementById('spamReminderBanner');
+
+      loginForm.classList.add('hidden');
+      regForm.classList.add('hidden');
+      resetForm.classList.add('hidden');
+
+      if (tab === 'login') {
+        loginForm.classList.remove('hidden');
+        tabLogin.className = "px-3.5 py-1.5 rounded-lg bg-amber-500 text-slate-950 shadow transition";
+        tabReg.className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition";
+        spamBanner.className = "p-3.5 rounded-2xl bg-amber-500/15 border border-amber-400/40 flex items-start gap-3";
+      } else if (tab === 'register') {
+        regForm.classList.remove('hidden');
+        tabReg.className = "px-3.5 py-1.5 rounded-lg bg-amber-500 text-slate-950 shadow transition";
+        tabLogin.className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition";
+        spamBanner.className = "p-3.5 rounded-2xl bg-amber-500/25 border-2 border-amber-400 flex items-start gap-3 shadow-lg";
+      } else if (tab === 'reset') {
+        resetForm.classList.remove('hidden');
+        spamBanner.className = "p-3.5 rounded-2xl bg-amber-500/25 border-2 border-amber-400 flex items-start gap-3 shadow-lg";
+      }
+    }
+
+    function togglePasswordVisibility(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+        `;
+      } else {
+        input.type = 'password';
+        icon.innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        `;
+      }
+    }
+
+    // 註冊：觸發 sendEmailVerification 並強制登出，綠字提示
+    async function handleEmailRegister(e) {
+      e.preventDefault();
+      hideAuthAlert();
+      const realName = document.getElementById('regRealName').value.trim();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const password = document.getElementById('regPassword').value;
+      const identityEl = document.querySelector('input[name="regIdentity"]:checked');
+      const identity = identityEl ? identityEl.value : "TONY老師學員";
+      const btn = document.getElementById('btnRegSubmit');
+
+      btn.disabled = true;
+      btn.textContent = "⏳ 正在建立帳號並發送驗證信...";
+      isRegisteringProcess = true;
+
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(cred.user, { displayName: realName });
+
+        const isCreator = email === CREATOR_ADMIN_EMAIL;
+        const nowIso = new Date().toISOString();
+
+        // 先寫入 Firestore users 集合
+        await setDoc(doc(db, 'users', cred.user.uid), {
+          uid: cred.user.uid,
+          email: email,
+          realName: realName,
+          identity: identity,
+          role: isCreator ? 'admin' : 'user',
+          isSystemCreator: isCreator,
+          createdAtIso: nowIso,
+          createdAt: serverTimestamp(),
+          lastLoginIso: nowIso,
+          loginCount: 0,
+          emailVerified: false,
+          history: [{
+            action: "完成會員註冊（已寄發驗證信）",
+            timeIso: nowIso
+          }]
+        }, { merge: true });
+
+        // 發送驗證信並強制登出
+        await sendEmailVerification(cred.user);
+        await signOut(auth);
+        isRegisteringProcess = false;
+
+        switchAuthTab('login');
+        document.getElementById('loginEmail').value = email;
+        showAuthAlert('success', `✅ 註冊成功！請至信箱點擊驗證（我們已發送確認信至 <u>${email}</u>）。<br>📬 <strong>溫馨提醒：</strong>註冊確認信有時會跑到「垃圾郵件匣」，請記得前往確認唷！`);
+      } catch (err) {
+        isRegisteringProcess = false;
+        let msg = err.message;
+        if (err.code === 'auth/email-already-in-use') msg = "此電子郵件已經註冊過囉！請直接切換至登入頁面。";
+        showAuthAlert('error', `❌ 註冊失敗：${msg}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "✉️ 註冊並發送驗證信 (Double Opt-in)";
+      }
+    }
+
+    // 登入：檢查 emailVerified，若為 false 則阻擋並給紅字警告
+    async function handleEmailLogin(e) {
+      e.preventDefault();
+      hideAuthAlert();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('btnLoginSubmit');
+
+      btn.disabled = true;
+      btn.textContent = "⏳ 正在驗證身分與信箱狀態...";
+
+      try {
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        await cred.user.reload();
+
+        if (!cred.user.emailVerified) {
+          // 補寄驗證信並強制登出
+          try { await sendEmailVerification(cred.user); } catch (_) {}
+          await signOut(auth);
+          showAuthAlert('error', `🚫 登入阻擋警告：您的信箱 (<u>${email}</u>) 尚未完成驗證（emailVerified 為 false）！<br>系統已重新寄發一封驗證信給您，請先至信箱（或<strong>垃圾郵件匣</strong>）點擊驗證連結後再登入。`);
+          return;
+        }
+
+        await processVerifiedUserLogin(cred.user);
+      } catch (err) {
+        let msg = "帳號或密碼錯誤，請重新確認。";
+        if (err.code === 'auth/user-not-found') msg = "找不到此信箱帳號，請先點擊右上方「註冊帳號」。";
+        showAuthAlert('error', `❌ 登入失敗：${msg}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "🚀 立即驗證登入沙盤";
+      }
+    }
+
+    // Google 帳號快速登入
+    async function handleGoogleLogin() {
+      hideAuthAlert();
+      try {
+        const provider = new GoogleAuthProvider();
+        const cred = await signInWithPopup(auth, provider);
+        await processVerifiedUserLogin(cred.user);
+      } catch (err) {
+        showAuthAlert('error', `❌ Google 登入未完成：${err.message}`);
+      }
+    }
+
+    // 忘記密碼
+    async function handleForgotPassword(e) {
+      e.preventDefault();
+      hideAuthAlert();
+      const email = document.getElementById('resetEmail').value.trim().toLowerCase();
+      const btn = document.getElementById('btnResetSubmit');
+      btn.disabled = true;
+      btn.textContent = "⏳ 寄送中...";
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showAuthAlert('success', `✅ 密碼重設信已發送至 <u>${email}</u>！<br>📬 <strong>溫馨提醒：</strong>確認信有時會跑到「垃圾郵件匣」，請記得前往確認唷！`);
+      } catch (err) {
+        showAuthAlert('error', `❌ 無法發送重設信：請確認信箱格式或是否已註冊 (${err.message})`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "發送密碼重設信";
+      }
+    }
+
+    // 登出
+    async function handleLogout() {
+      await signOut(auth);
+      document.getElementById('mainAppWrapper').classList.add('hidden');
+      document.getElementById('authGateWrapper').classList.remove('hidden');
+      showAuthAlert('success', '👋 您已安全登出系統。');
+    }
+
+    // 處理已驗證使用者之 RBAC 權限與寫入登入次數/歷史紀錄
+    async function processVerifiedUserLogin(user) {
+      const email = (user.email || "").toLowerCase();
+      const isCreator = email === CREATOR_ADMIN_EMAIL;
+      const userRef = doc(db, 'users', user.uid);
+      const snap = await getDoc(userRef);
+      const nowIso = new Date().toISOString();
+      const defaultIdentity = document.getElementById('googleIdentitySelect')?.value || "TONY老師學員";
+
+      if (!snap.exists()) {
+        const newProfile = {
+          uid: user.uid,
+          email: email,
+          realName: user.displayName || email.split('@')[0],
+          identity: defaultIdentity,
+          role: isCreator ? 'admin' : 'user',
+          isSystemCreator: isCreator,
+          createdAtIso: nowIso,
+          createdAt: serverTimestamp(),
+          lastLoginIso: nowIso,
+          loginCount: 1,
+          emailVerified: true,
+          history: [{
+            action: "首次驗證登入系統",
+            timeIso: nowIso
+          }]
+        };
+        await setDoc(userRef, newProfile);
+        currentMemberProfile = newProfile;
+      } else {
+        const existing = snap.data();
+        const assignedRole = isCreator ? 'admin' : (existing.role || 'user');
+        const updatedCount = (existing.loginCount || 0) + 1;
+        await setDoc(userRef, {
+          emailVerified: true,
+          role: assignedRole,
+          isSystemCreator: isCreator,
+          lastLoginIso: nowIso,
+          loginCount: updatedCount,
+          history: arrayUnion({
+            action: `成功登入系統 (第 ${updatedCount} 次)`,
+            timeIso: nowIso
+          })
+        }, { merge: true });
+        currentMemberProfile = {
+          ...existing,
+          role: assignedRole,
+          isSystemCreator: isCreator,
+          loginCount: updatedCount
+        };
+      }
+
+      enterMainAppWithProfile(currentMemberProfile);
+    }
+
+    function enterMainAppWithProfile(profile) {
+      document.getElementById('authGateWrapper').classList.add('hidden');
+      document.getElementById('mainAppWrapper').classList.remove('hidden');
+
+      const navBadge = document.getElementById('navMemberBadge');
+      navBadge.textContent = `${profile.realName} (${profile.identity === 'TONY老師學員' ? '學員' : '訪客'})`;
+
+      // 若學員尚未自訂通訊處名稱，帶入真實姓名
+      if (!localStorage.getItem('ins_teamName') && profile.realName) {
+        playerState.teamName = `${profile.realName}・頂尖顧問隊`;
+        document.getElementById('inputTeamName').value = playerState.teamName;
+        applyHeaderProfileUI();
+      }
+
+      // RBAC 檢查：是否顯示右上角『進入管理後台』按鈕
+      const adminBtn = document.getElementById('adminDashboardBtn');
+      if (profile.role === 'admin' || profile.email === CREATOR_ADMIN_EMAIL) {
+        adminBtn.classList.remove('hidden');
+        adminBtn.classList.add('flex');
+        subscribeAllUsersForAdmin();
+      } else {
+        adminBtn.classList.add('hidden');
+        adminBtn.classList.remove('flex');
+      }
+    }
+
+    // 紀錄學員保單健檢演練軌跡至會員歷史紀錄
+    async function appendUserHistoryEvent(actionText) {
+      if (!db || !auth?.currentUser) return;
+      try {
+        const userRef = doc(db, 'users', auth.currentUser.uid);
+        await setDoc(userRef, {
+          history: arrayUnion({
+            action: actionText,
+            timeIso: new Date().toISOString()
+          })
+        }, { merge: true });
+      } catch (e) {
+        console.warn("更新會員歷史紀錄失敗：", e);
+      }
+    }
+
+    // 管理員即時監聽所有註冊會員
+    function subscribeAllUsersForAdmin() {
+      if (!db) return;
+      if (unsubscribeUsersList) unsubscribeUsersList();
+      unsubscribeUsersList = onSnapshot(collection(db, 'users'), (snap) => {
+        const arr = [];
+        snap.forEach(d => arr.push({ id: d.id, ...d.data() }));
+        arr.sort((a, b) => (b.createdAtIso || "").localeCompare(a.createdAtIso || ""));
+        allUsersCache = arr;
+        renderAdminUsersTable();
+      });
+    }
+
+    function renderAdminUsersTable() {
+      const tbody = document.getElementById('adminUsersTableBody');
+      if (!tbody) return;
+
+      const total = allUsersCache.length;
+      const students = allUsersCache.filter(u => u.identity === 'TONY老師學員').length;
+      const guests = total - students;
+      const totalLogins = allUsersCache.reduce((acc, u) => acc + (u.loginCount || 0), 0);
+
+      document.getElementById('adminStatTotalUsers').textContent = total;
+      document.getElementById('adminStatStudents').textContent = students;
+      document.getElementById('adminStatGuests').textContent = guests;
+      document.getElementById('adminStatTotalLogins').textContent = totalLogins;
+
+      if (total === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-500">目前尚無會員資料</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = allUsersCache.map(u => {
+        const isCreator = (u.email || "").toLowerCase() === CREATOR_ADMIN_EMAIL || u.isSystemCreator;
+        const isAdmin = u.role === 'admin' || isCreator;
+        const regTime = u.createdAtIso ? new Date(u.createdAtIso).toLocaleString('zh-TW') : '—';
+        const historyCount = Array.isArray(u.history) ? u.history.length : 0;
+
+        return `
+          <tr class="hover:bg-slate-800/50 transition">
+            <td class="py-3 px-3 font-bold text-white">${u.realName || '未填寫'}</td>
+            <td class="py-3 px-3 font-mono text-slate-300">${u.email || ''}</td>
+            <td class="py-3 px-3">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold ${
+                u.identity === 'TONY老師學員'
+                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                  : 'bg-slate-800 text-slate-300 border border-slate-700'
+              }">${u.identity || '一般訪客'}</span>
+            </td>
+            <td class="py-3 px-3">
+              ${
+                isCreator
+                  ? '<span class="px-2.5 py-0.5 rounded bg-rose-500/30 text-rose-200 border border-rose-400/50 font-black">👑 系統創作者 (最高權限)</span>'
+                  : isAdmin
+                  ? '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">🛡️ Admin 管理員</span>'
+                  : '<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400">一般會員 (user)</span>'
+              }
+            </td>
+            <td class="py-3 px-3 font-mono text-[11px] text-slate-400">${regTime}</td>
+            <td class="py-3 px-3 font-mono text-center font-bold text-amber-300">${u.loginCount || 0} 次</td>
+            <td class="py-3 px-3 text-right space-x-1.5 whitespace-nowrap">
+              <button onclick="window.app.viewMemberHistory('${u.id}')" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 font-bold transition">
+                📜 歷史紀錄 (${historyCount})
+              </button>
+              ${
+                isCreator
+                  ? '<span class="px-2.5 py-1 rounded-lg bg-slate-800/80 text-slate-500 text-[11px] font-bold cursor-not-allowed">🔒 創作者鎖定保護</span>'
+                  : `
+                    <button onclick="window.app.toggleUserRole('${u.id}', '${isAdmin ? 'user' : 'admin'}')" class="px-2.5 py-1 rounded-lg ${
+                      isAdmin
+                        ? 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30'
+                        : 'bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30'
+                    } font-bold transition">
+                      ${isAdmin ? '⬇️ 降為 User' : '⬆️ 升為 Admin'}
+                    </button>
+                    <button onclick="window.app.deleteUserRecord('${u.id}')" class="px-2.5 py-1 rounded-lg bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 border border-rose-500/40 font-bold transition">
+                      🗑️ 刪除
+                    </button>
+                  `
+              }
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function toggleUserRole(uid, targetRole) {
+      const target = allUsersCache.find(u => u.id === uid);
+      if (!target) return;
+      if ((target.email || "").toLowerCase() === CREATOR_ADMIN_EMAIL || target.isSystemCreator) return;
+
+      await setDoc(doc(db, 'users', uid), {
+        role: targetRole,
+        history: arrayUnion({
+          action: `管理員將權限調整為 ${targetRole}`,
+          timeIso: new Date().toISOString()
+        })
+      }, { merge: true });
+    }
+
+    async function deleteUserRecord(uid) {
+      const target = allUsersCache.find(u => u.id === uid);
+      if (!target) return;
+      if ((target.email || "").toLowerCase() === CREATOR_ADMIN_EMAIL || target.isSystemCreator) return;
+      await deleteDoc(doc(db, 'users', uid));
+    }
+
+    function viewMemberHistory(uid) {
+      const target = allUsersCache.find(u => u.id === uid);
+      if (!target) return;
+      const drawer = document.getElementById('memberHistoryDrawer');
+      const title = document.getElementById('memberHistoryTitle');
+      const list = document.getElementById('memberHistoryList');
+
+      title.textContent = `📜 【${target.realName} (${target.email})】完整學習與登錄歷史紀錄`;
+      const logs = Array.isArray(target.history) ? [...target.history].reverse() : [];
+
+      if (logs.length === 0) {
+        list.innerHTML = `<div class="text-slate-400">尚無歷史紀錄</div>`;
+      } else {
+        list.innerHTML = logs.map(item => `
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-4">
+            <span class="text-white font-semibold">${item.action}</span>
+            <span class="font-mono text-slate-400 shrink-0">${item.timeIso ? new Date(item.timeIso).toLocaleString('zh-TW') : ''}</span>
+          </div>
+        `).join('');
+      }
+      drawer.classList.remove('hidden');
+    }
+
+    // 功能 5：商業數據匯出 (Export CSV) 加入 \ufeff BOM 防亂碼
+    function exportMembersCSV() {
+      const headers = ["真實姓名", "電子郵件(Email)", "參訓身份", "系統權限", "註冊時間", "最後登入時間", "登錄次數", "歷史軌跡筆數"];
+      const rows = allUsersCache.map(u => {
+        const isCreator = (u.email || "").toLowerCase() === CREATOR_ADMIN_EMAIL || u.isSystemCreator;
+        const roleLabel = isCreator ? "系統創作者(Admin)" : (u.role || "user");
+        const regTime = u.createdAtIso ? new Date(u.createdAtIso).toLocaleString('zh-TW') : "";
+        const lastTime = u.lastLoginIso ? new Date(u.lastLoginIso).toLocaleString('zh-TW') : "";
+        const histCount = Array.isArray(u.history) ? u.history.length : 0;
+        return [
+          u.realName || "",
+          u.email || "",
+          u.identity || "",
+          roleLabel,
+          regTime,
+          lastTime,
+          u.loginCount || 0,
+          histCount
+        ].map(val => `"${String(val).replace(/"/g, '""')}"`).join(',');
+      });
+
+      const csvContent = "\ufeff" + [headers.join(','), ...rows].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `風險領航家_註冊會員名單_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // 功能 6：設定起訖時間產出 AI 分析報告並可匯出成 WORD 檔
+    async function generateAdminAiReport() {
+      const startStr = document.getElementById('aiReportStartDate').value;
+      const endStr = document.getElementById('aiReportEndDate').value;
+      const box = document.getElementById('adminAiReportBox');
+      const btn = document.getElementById('btnAdminAiAnalyze');
+
+      const startMs = startStr ? new Date(startStr + "T00:00:00").getTime() : 0;
+      const endMs = endStr ? new Date(endStr + "T23:59:59").getTime() : Date.now();
+
+      const filteredUsers = allUsersCache.filter(u => {
+        if (!u.createdAtIso) return true;
+        const t = new Date(u.createdAtIso).getTime();
+        return t >= startMs && t <= endMs;
+      });
+
+      const studentCount = filteredUsers.filter(u => u.identity === 'TONY老師學員').length;
+      const guestCount = filteredUsers.length - studentCount;
+      const totalLogins = filteredUsers.reduce((acc, u) => acc + (u.loginCount || 0), 0);
+
+      btn.disabled = true;
+      btn.textContent = "⏳ AI 正在分析區間數據...";
+
+      const rangeText = `${startStr || '系統啟用日'} 至 ${endStr || new Date().toISOString().slice(0, 10)}`;
+      const prompt = `
+        你是 TONY 楊文澤資深 AI 科技顧問的平台數據分析長。
+        請針對《風險領航家：家庭風險抗壓與 AI 保單健檢沙盤》在【${rangeText}】期間的營運與學員演練數據，撰寫一份結構嚴謹的「SaaS 平台培訓成效與商業洞察分析報告」：
+        - 區間新增/活躍會員總數：${filteredUsers.length} 人（其中 TONY 老師學員：${studentCount} 人、非學員一般訪客：${guestCount} 人）
+        - 區間累計登錄與互動總次數：${totalLogins} 次
+        - 當前課堂戰情室連線組數：${cloudTeamsCache.length} 組
+        請包含：
+        壹、區間會員結構與學員活躍度摘要
+        貳、8大台灣典型家庭保單健檢決策盲點洞察
+        參、後續課程行銷轉化與增員留存建議
+      `;
+
+      let reportText = "";
+      if (playerState.geminiApiKey) {
+        try {
+          reportText = await callGeminiTextWithFallback(prompt, playerState.geminiApiKey);
+        } catch (e) {
+          console.warn("AI 報告改用內建分析引擎", e);
+        }
+      }
+
+      if (!reportText) {
+        await new Promise(r => setTimeout(r, 500));
+        reportText = `【風險領航家 SaaS 平台・AI 區間營運與培訓成效分析報告】
+📅 分析統計區間：${rangeText}
+👑 系統創作者與總顧問：TONY 楊文澤 老師 (mindnodeai@gmail.com)
+
+壹、區間會員結構與參與活躍度分析
+1. 區間註冊與活躍總人數：共計 ${filteredUsers.length} 名會員。
+2. 學員身分佔比：🎓「TONY老師學員」共 ${studentCount} 人（佔比 ${filteredUsers.length ? Math.round((studentCount / filteredUsers.length) * 100) : 0}%）；🌟「非學員(一般訪客)」共 ${guestCount} 人。
+3. 平台黏著度與演練頻次：區間累積登錄達 ${totalLogins} 人次，當前戰情室共有 ${cloudTeamsCache.length} 組通訊處隊伍進行保單壓力測試。
+
+貳、八大台灣家庭案例之保單健檢決策洞察
+1. 基礎家庭篇 (Case 1~4)：學員在「三明治房貸族」與「高資產傳承局」的轉換中，能快速理解『責任期重壓重大傷病與定期壽險、高資產重壓預留稅源與分紅傳承』之差異。
+2. 進階客群篇 (Case 5~8)：針對「不婚頂客 ETF 族」與「迷信團險之醫護科技族」，透過 10 年後黑天鵝帳單開獎，成功破除傳統儲蓄險錯置與團險離職斷保盲點。
+
+參、TONY 顧問後續行動與商業轉化建議
+1. 針對高登錄次數之「TONY老師學員」，可進一步開放進階 MDRT 顧問認證與實戰角色扮演（Role-play）模組。
+2. 針對「非學員(一般訪客)」名單，可透過匯出之 CSV 清冊進行精準 EDM 二次行銷，轉化為企業內訓或公開班正式學員。`;
+      }
+
+      latestAdminAiReportText = reportText;
+      box.textContent = reportText;
+      btn.disabled = false;
+      btn.textContent = "🤖 產出區間 AI 分析報告";
+    }
+
+    function exportAdminAiWord() {
+      if (!latestAdminAiReportText) {
+        generateAdminAiReport().then(() => executeAdminWordDownload());
+        return;
+      }
+      executeAdminWordDownload();
+    }
+
+    function executeAdminWordDownload() {
+      const startStr = document.getElementById('aiReportStartDate').value || "系統啟用日";
+      const endStr = document.getElementById('aiReportEndDate').value || new Date().toISOString().slice(0, 10);
+      const rowsHtml = allUsersCache.map(u => `
+        <tr>
+          <td style="border:1px solid #cbd5e1; padding:6px;">${u.realName || ''}</td>
+          <td style="border:1px solid #cbd5e1; padding:6px;">${u.email || ''}</td>
+          <td style="border:1px solid #cbd5e1; padding:6px;">${u.identity || ''}</td>
+          <td style="border:1px solid #cbd5e1; padding:6px;">${u.role || 'user'}</td>
+          <td style="border:1px solid #cbd5e1; padding:6px; text-align:center;">${u.loginCount || 0}</td>
+        </tr>
+      `).join('');
+
+      const docHtml = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset="utf-8"><title>AI 營運與培訓成效分析報告</title></head>
+        <body style="font-family:'Microsoft JhengHei',sans-serif; color:#0f172a; line-height:1.6;">
+          <h1 style="color:#b45309; border-bottom:2px solid #f59e0b; padding-bottom:6px;">《風險領航家》AI 會員數據與培訓成效分析報告</h1>
+          <p><b>分析區間：</b>${startStr} ～ ${endStr} ｜ <b>產出時間：</b>${new Date().toLocaleString('zh-TW')}</p>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:14px; white-space:pre-line;">${latestAdminAiReportText}</div>
+          <h2 style="color:#0f172a; margin-top:20px;">附錄：註冊會員統計清冊</h2>
+          <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+            <thead>
+              <tr style="background:#e2e8f0;">
+                <th style="border:1px solid #cbd5e1; padding:6px;">真實姓名</th>
+                <th style="border:1px solid #cbd5e1; padding:6px;">Email</th>
+                <th style="border:1px solid #cbd5e1; padding:6px;">身份</th>
+                <th style="border:1px solid #cbd5e1; padding:6px;">權限</th>
+                <th style="border:1px solid #cbd5e1; padding:6px;">登錄次數</th>
+              </tr>
+            </thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+          <p style="margin-top:24px; font-size:9pt; color:#64748b; text-align:center;">© 2020 TonyStudio. 本學習平台由 TONY 楊文澤資深AI科技顧問設計. All Rights Reserved.</p>
+        </body></html>
+      `;
+      const blob = new Blob(['\ufeff', docHtml], { type: 'application/msword;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `AI營運分析報告_${startStr}_至_${endStr}.doc`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function toggleAdminModal() {
+      const modal = document.getElementById('adminModal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        const today = new Date().toISOString().slice(0, 10);
+        const endEl = document.getElementById('aiReportEndDate');
+        const startEl = document.getElementById('aiReportStartDate');
+        if (!endEl.value) endEl.value = today;
+        if (!startEl.value) startEl.value = "2026-01-01";
+        renderAdminUsersTable();
+      }
+    }
+
+    function toggleCreatorModal() {
+      document.getElementById('creatorModal').classList.toggle('hidden');
+    }
+
+    /******************************************************************
+     * 7. Firebase 初始化與即時監聽
+     ******************************************************************/
+    async function initFirebase() {
+      try {
+        appInstance = initializeApp(firebaseConfig);
+        auth = getAuth(appInstance);
+        db = getFirestore(appInstance);
+
+        onAuthStateChanged(auth, async (user) => {
+          if (isRegisteringProcess) return;
+
+          if (user && !user.isAnonymous) {
+            // Double Opt-in 檢核
+            const isGoogle = user.providerData?.some(p => p.providerId === 'google.com');
+            if (!user.emailVerified && !isGoogle) {
+              document.getElementById('mainAppWrapper').classList.add('hidden');
+              document.getElementById('authGateWrapper').classList.remove('hidden');
+              return;
+            }
+
+            currentUserUid = user.uid;
+            document.getElementById('displayUidBadge').textContent = `(UID: ${user.uid.slice(0, 6)})`;
+            updateStatusBadge('connected', '🟢 雲端戰情室連線中 (Firestore Live)');
+            isFirebaseConnected = true;
+
+            await processVerifiedUserLogin(user);
+            subscribeToRoomData(playerState.roomId);
+            await syncMyTeamToFirestore();
+          } else {
+            document.getElementById('mainAppWrapper').classList.add('hidden');
+            document.getElementById('authGateWrapper').classList.remove('hidden');
+          }
+        });
+      } catch (err) {
+        console.warn("[Firebase Fallback] 切換至本機沙盤模式：", err);
+        updateStatusBadge('warning', '⚠️ 本機沙盤模式');
+        renderWarRoomCharts([]);
+      }
+    }
+
+    function updateStatusBadge(status, text) {
+      const badge = document.getElementById('firebaseStatusBadge');
+      const dot = document.getElementById('firebaseStatusDot');
+      const label = document.getElementById('firebaseStatusText');
+      label.textContent = text;
+
+      if (status === 'connected') {
+        badge.className = "text-xs px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5";
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 pulse-dot";
+      } else {
+        badge.className = "text-xs px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5";
+        dot.className = "w-2 h-2 rounded-full bg-amber-400 pulse-dot";
+      }
+    }
+
+    function subscribeToRoomData(roomId) {
+      if (!db) return;
+      if (unsubscribeTeams) unsubscribeTeams();
+      if (unsubscribeRoomMeta) unsubscribeRoomMeta();
+
+      const teamsRef = collection(db, 'ins_rooms', roomId, 'teams');
+      unsubscribeTeams = onSnapshot(teamsRef, (snapshot) => {
+        const list = [];
+        snapshot.forEach(docSnap => {
+          list.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        cloudTeamsCache = list;
+        document.getElementById('onlineTeamCount').textContent = list.length;
+        renderWarRoomCharts(list);
+        renderQrModalTeamList(list);
+      });
+
+      const roomDocRef = doc(db, 'ins_rooms', roomId);
+      unsubscribeRoomMeta = onSnapshot(roomDocRef, (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.customCase) {
+            CASES[7] = data.customCase;
+            renderCaseSelector();
+            renderWarRoomCaseQuickBar();
+            if (currentCaseIndex === 7) {
+              loadCase(7, false);
+            }
+          }
+          if (data.timerActive && data.timerEndAt && data.timerEndAt > Date.now()) {
+            if (Math.abs(data.timerEndAt - timerEndTimestamp) > 1500) {
+              activateLocalCountdown(data.timerEndAt, data.timerDuration || 60);
+            }
+          } else if (data.timerActive === false) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            resetTimerVisuals(60);
+          }
+        }
+      });
+    }
+
+    async function syncMyTeamToFirestore() {
+      if (!db || !isFirebaseConnected) return;
+      try {
+        const completedList = Object.values(playerState.completedCases);
+        const count = completedList.length;
+        const totalProtectedMan = completedList.reduce((acc, cur) => acc + cur.payoutMan, 0);
+        const avgRes = count > 0 ? Math.round(completedList.reduce((acc, cur) => acc + cur.score, 0) / count) : 0;
+
+        const teamDocRef = doc(db, 'ins_rooms', playerState.roomId, 'teams', currentUserUid);
+        await setDoc(teamDocRef, {
+          teamName: playerState.teamName,
+          role: playerState.role,
+          totalProtectedMan,
+          avgResilience: avgRes,
+          completedCount: count,
+          latestWeights: weights,
+          completedCases: playerState.completedCases,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+      } catch (e) {
+        console.warn("寫入 Firestore 失敗：", e);
+      }
+    }
+
+    /******************************************************************
+     * 8. 學員端介面渲染、章節篩選與 5 大險種滑桿控制
+     ******************************************************************/
+    function initUI() {
+      document.getElementById('inputTeamName').value = playerState.teamName;
+      document.getElementById('inputRole').value = playerState.role;
+      document.getElementById('inputRoomId').value = playerState.roomId;
+      document.getElementById('inputGeminiKey').value = playerState.geminiApiKey;
+
+      applyHeaderProfileUI();
+      renderCaseSelector();
+      renderWarRoomCaseQuickBar();
+      loadCase(0);
+    }
+
+    function applyHeaderProfileUI() {
+      document.getElementById('displayTeamName').textContent = playerState.teamName;
+      document.getElementById('displayRoomId').textContent = playerState.roomId;
+      document.getElementById('warRoomCodeDisplay').textContent = playerState.roomId;
+      document.getElementById('displayRoleBadge').textContent = playerState.role === 'manager' ? '[資深主管/MDRT組]' : '[新銳業務/增員組]';
+      document.getElementById('displayRoleBadge').className = playerState.role === 'manager' ? 'text-amber-400 font-semibold' : 'text-indigo-400 font-semibold';
+      document.getElementById('playerAvatar').textContent = playerState.role === 'manager' ? '👔' : '🚀';
+    }
+
+    function setChapterFilter(chap) {
+      currentChapterFilter = chap;
+      ['ch1', 'ch2', 'all'].forEach(c => {
+        const btn = document.getElementById(`chap-${c}`);
+        if (c === chap) {
+          btn.className = "px-3 py-1.5 rounded-xl bg-amber-600 text-white shadow border border-amber-500 transition";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition";
+        }
+      });
+
+      if (chap === 'ch1' && currentCaseIndex >= 4) {
+        loadCase(0);
+      } else if (chap === 'ch2' && currentCaseIndex < 4) {
+        loadCase(4);
+      } else {
+        renderCaseSelector();
+      }
+    }
+
+    function switchMode(mode) {
+      ['bible', 'player', 'sandbox', 'instructor'].forEach(m => {
+        document.getElementById(`view-${m}`).classList.add('hidden');
+        const btn = document.getElementById(`tab-${m}`);
+        btn.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition";
+      });
+      document.getElementById(`view-${mode}`).classList.remove('hidden');
+      document.getElementById(`tab-${mode}`).className = "px-3 py-1.5 rounded-lg bg-amber-600 text-white shadow transition";
+      if (mode === 'instructor') {
+        renderWarRoomCaseQuickBar();
+        renderWarRoomCharts(cloudTeamsCache);
+      }
+    }
+
+    function renderCaseSelector() {
+      const container = document.getElementById('caseSelectorContainer');
+      const visibleItems = CASES.map((c, idx) => ({ c, idx })).filter(item => {
+        if (currentChapterFilter === 'ch1') return item.idx < 4;
+        if (currentChapterFilter === 'ch2') return item.idx >= 4;
+        return true;
+      });
+
+      container.innerHTML = visibleItems.map(({ c, idx }) => {
+        const isActive = idx === currentCaseIndex;
+        const isDone = playerState.completedCases[idx] !== undefined;
+        const isExpansion = idx >= 4;
+        return `
+          <button onclick="window.app.loadCase(${idx})" class="text-left p-3.5 rounded-2xl border transition flex flex-col justify-between ${
+            isActive
+              ? 'bg-amber-500/20 border-amber-500 shadow-lg shadow-amber-500/10'
+              : 'glass-card border-slate-800 hover:border-slate-700'
+          }">
+            <div class="flex items-center justify-between w-full mb-1">
+              <span class="text-xs font-bold ${isActive ? 'text-amber-300' : 'text-slate-400'}">
+                案例 ${idx + 1} ${isExpansion ? '<span class="text-[10px] text-indigo-300 ml-0.5">★進階</span>' : ''}
+              </span>
+              ${isDone ? '<span class="text-xs px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300">✓ 已健檢</span>' : ''}
+            </div>
+            <div class="font-bold text-sm text-white truncate">${c.profileTitle}</div>
+            <div class="text-xs text-slate-400 truncate mt-0.5">年繳預算：${c.annualBudgetMan} 萬元</div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderWarRoomCaseQuickBar() {
+      const bar = document.getElementById('warRoomCaseQuickBar');
+      if (!bar) return;
+      bar.innerHTML = CASES.map((c, idx) => {
+        const isActive = idx === currentCaseIndex;
+        return `
+          <button onclick="window.app.loadCase(${idx})" class="px-3 py-1.5 rounded-xl text-xs font-bold transition border ${
+            isActive
+              ? 'bg-amber-500 text-slate-950 border-amber-400 shadow'
+              : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
+          }">
+            C${idx + 1}・${c.profileTitle.slice(0, 8)}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function loadCase(index, hideResult = true) {
+      currentCaseIndex = index;
+      const c = CASES[index];
+      renderCaseSelector();
+      renderWarRoomCaseQuickBar();
+
+      document.getElementById('caseTag').textContent = c.tag;
+      document.getElementById('caseBudgetBadge').textContent = `年繳保費預算：NT$ ${c.annualBudgetMan} 萬元`;
+      document.getElementById('caseTitle').textContent = c.profileTitle;
+      document.getElementById('caseDesc').textContent = c.desc;
+      document.getElementById('warRoomCurrentCaseLabel').textContent = `Case ${index + 1}：${c.profileTitle}`;
+
+      document.getElementById('signalsContainer').innerHTML = c.signals.map(sig => `
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/40 transition">
+          <div class="flex items-center gap-2 text-xs font-bold text-amber-300 mb-1">
+            <span class="text-base">${sig.icon}</span>
+            <span>${sig.type}｜${sig.title}</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed pl-6">${sig.detail}</p>
+        </div>
+      `).join('');
+
+      if (playerState.completedCases[index]) {
+        weights = { ...playerState.completedCases[index].weights };
+      } else {
+        weights = { med: 20, ci: 20, ltc: 20, life: 20, sav: 20 };
+      }
+
+      renderSliders();
+      if (hideResult) {
+        document.getElementById('resultPanel').classList.add('hidden');
+      }
+      renderWarRoomCharts(cloudTeamsCache);
+    }
+
+    function goToNextCase() {
+      const nextIdx = (currentCaseIndex + 1) % CASES.length;
+      loadCase(nextIdx, true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSliders() {
+      const c = CASES[currentCaseIndex];
+      const container = document.getElementById('slidersContainer');
+      container.innerHTML = PILLARS.map(p => {
+        const val = weights[p.code];
+        const feeMan = ((c.annualBudgetMan * val) / 100).toFixed(1);
+        return `
+          <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">${p.icon}</span>
+                <div>
+                  <div class="text-sm font-bold text-white">${p.name}</div>
+                  <div class="text-[11px] text-slate-400">${p.sub}</div>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <span id="labelWeight-${p.code}" class="text-lg font-black font-mono ${p.color}">${val}%</span>
+                <div id="labelFee-${p.code}" class="text-[11px] text-slate-400 font-mono">年繳 ${feeMan} 萬</div>
+              </div>
+            </div>
+            <input type="range" min="0" max="100" step="5" value="${val}"
+              oninput="window.app.handleSliderChange('${p.code}', this.value)"
+              id="slider-${p.code}" class="w-full">
+          </div>
+        `;
+      }).join('');
+      updateBudgetSumUI();
+    }
+
+    function handleSliderChange(code, newVal) {
+      const c = CASES[currentCaseIndex];
+      weights[code] = parseInt(newVal, 10);
+      const feeMan = ((c.annualBudgetMan * weights[code]) / 100).toFixed(1);
+      document.getElementById(`labelWeight-${code}`).textContent = `${weights[code]}%`;
+      document.getElementById(`labelFee-${code}`).textContent = `年繳 ${feeMan} 萬`;
+      updateBudgetSumUI();
+    }
+
+    function setFiveWeights(med, ci, ltc, life, sav) {
+      weights = { med, ci, ltc, life, sav };
+      const c = CASES[currentCaseIndex];
+      PILLARS.forEach(p => {
+        const val = weights[p.code];
+        const slider = document.getElementById(`slider-${p.code}`);
+        if (slider) slider.value = val;
+        const lblW = document.getElementById(`labelWeight-${p.code}`);
+        const lblF = document.getElementById(`labelFee-${p.code}`);
+        if (lblW) lblW.textContent = `${val}%`;
+        if (lblF) lblF.textContent = `年繳 ${((c.annualBudgetMan * val) / 100).toFixed(1)} 萬`;
+      });
+      updateBudgetSumUI();
+    }
+
+    function applyCaseBestPreset() {
+      const ideal = CASES[currentCaseIndex].idealWeights;
+      setFiveWeights(ideal.med, ideal.ci, ideal.ltc, ideal.life, ideal.sav);
+    }
+
+    function updateBudgetSumUI() {
+      const sum = weights.med + weights.ci + weights.ltc + weights.life + weights.sav;
+      const c = CASES[currentCaseIndex];
+      const badge = document.getElementById('budgetSumBadge');
+      const btn = document.getElementById('submitDecisionBtn');
+
+      if (sum === 100) {
+        badge.textContent = `100% (年繳 ${c.annualBudgetMan} 萬・配置完成)`;
+        badge.className = "text-sm md:text-base font-black font-mono px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+      } else {
+        const diff = 100 - sum;
+        const msg = diff > 0 ? `還差 ${diff}%` : `超出 ${Math.abs(diff)}%`;
+        badge.textContent = `${sum}% (${msg})`;
+        badge.className = "text-sm md:text-base font-black font-mono px-3 py-1 rounded-lg bg-rose-500/20 text-rose-400 border border-rose-500/30";
+        btn.disabled = true;
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+
+    /******************************************************************
+     * 9. 啟動 10 年後人生突發風險壓力測試開獎演算法
+     ******************************************************************/
+    async function submitDecision() {
+      const sum = weights.med + weights.ci + weights.ltc + weights.life + weights.sav;
+      if (sum !== 100) return;
+
+      playSoundEffect('start');
+
+      const c = CASES[currentCaseIndex];
+      const ideal = c.idealWeights;
+      const shock = c.shockEvent;
+
+      let totalDiff = 0;
+      PILLARS.forEach(p => {
+        totalDiff += Math.abs(weights[p.code] - ideal[p.code]);
+      });
+      const finalScore = Math.max(25, Math.round(100 - totalDiff * 0.65));
+
+      let totalPayoutMan = 0;
+      const pillarPayoutDetails = {};
+
+      PILLARS.forEach(p => {
+        const code = p.code;
+        const userW = weights[code];
+        const idealW = Math.max(5, ideal[code]);
+        const maxCover = shock.pillarMaxCover[code] || 0;
+        const ratio = Math.min(1.15, userW / idealW);
+        const payout = Math.round(maxCover * ratio);
+        pillarPayoutDetails[code] = payout;
+        totalPayoutMan += payout;
+      });
+
+      totalPayoutMan = Math.min(Math.round(shock.totalLossMan * 1.05), totalPayoutMan);
+      const outOfPocketMan = Math.max(0, shock.totalLossMan - totalPayoutMan);
+
+      document.getElementById('shockEventTitle').textContent = shock.title;
+      document.getElementById('shockEventDesc').textContent = shock.desc;
+      document.getElementById('shockTotalLossLabel').textContent = `總財務衝擊：NT$ ${shock.totalLossMan.toLocaleString()} 萬元`;
+
+      document.getElementById('resShockLoss').textContent = `NT$ ${shock.totalLossMan.toLocaleString()}萬`;
+      document.getElementById('resClaimPayout').textContent = `NT$ ${totalPayoutMan.toLocaleString()}萬`;
+      document.getElementById('resOutPocket').textContent = outOfPocketMan === 0 ? `0 萬 (全額覆蓋)` : `NT$ ${outOfPocketMan.toLocaleString()}萬`;
+      document.getElementById('resScore').textContent = `${finalScore} 分`;
+
+      const gradeBadge = document.getElementById('resultGradeBadge');
+      let gradeTitle = "";
+      if (finalScore >= 85) {
+        gradeTitle = "🏆 S 級・MDRT 首席風險領航家（完美扛住家庭黑天鵝衝擊）";
+        gradeBadge.textContent = "🏆 S 級・MDRT 風險領航家";
+        gradeBadge.className = "px-3 py-1.5 rounded-xl font-black text-xs md:text-sm bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+      } else if (finalScore >= 70) {
+        gradeTitle = "✨ A 級・穩健保單健檢顧問（已覆蓋主要風險，部分缺口可再微調）";
+        gradeBadge.textContent = "✨ A 級・穩健保單健檢顧問";
+        gradeBadge.className = "px-3 py-1.5 rounded-xl font-black text-xs md:text-sm bg-amber-500/20 text-amber-300 border border-amber-500/40";
+      } else {
+        gradeTitle = `⚠️ B 級・傳統商品推銷員（保單嚴重錯置，害保戶自掏腰包 ${outOfPocketMan} 萬）`;
+        gradeBadge.textContent = "⚠️ B 級・保障缺口嚴重";
+        gradeBadge.className = "px-3 py-1.5 rounded-xl font-black text-xs md:text-sm bg-rose-500/20 text-rose-300 border border-rose-500/40";
+      }
+
+      document.getElementById('fivePillarsDiagnosisContainer').innerHTML = PILLARS.map(p => {
+        const uW = weights[p.code];
+        const iW = ideal[p.code];
+        const diff = uW - iW;
+        const statusText = Math.abs(diff) <= 5
+          ? `<span class="text-emerald-400 font-bold">✓ 精準命中黃金配比 (${iW}%)</span>`
+          : diff > 5
+          ? `<span class="text-amber-400 font-bold">▲ 超配 +${diff}% (顧問建議 ${iW}%)</span>`
+          : `<span class="text-rose-400 font-bold">▼ 低配缺口 ${diff}% (顧問建議 ${iW}%)</span>`;
+
+        return `
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="font-bold text-white">${p.icon} ${p.name}：貴組配置 <span class="font-mono text-amber-300">${uW}%</span>（本次理賠貢獻：NT$ ${pillarPayoutDetails[p.code]} 萬）</span>
+              ${statusText}
+            </div>
+            <p class="text-slate-300 leading-relaxed">${c.pillarExplain[p.code]}</p>
+          </div>
+        `;
+      }).join('');
+
+      const pb = c.actionPlaybook;
+      document.getElementById('actionPlaybookContainer').innerHTML = `
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-1">① Right Who（精準鎖定對象與決策者）</div>
+          <p class="text-slate-200 leading-relaxed">${pb.rightWho}</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-1">② Right Time（黃金接觸與促成時機）</div>
+          <p class="text-slate-200 leading-relaxed">${pb.rightTime}</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-1">③ Right Offer（保單組合與視覺化工具）</div>
+          <p class="text-slate-200 leading-relaxed">${pb.rightOffer}</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+          <div class="font-bold text-emerald-400 mb-1">④ Right Action SOP（顧問式面談四步曲）</div>
+          <p class="text-slate-200 leading-relaxed">${pb.rightSop}</p>
+        </div>
+      `;
+
+      let defaultCommentary = `【TONY 老師 AI 首席保險顧問綜合診斷】\n`;
+      defaultCommentary += `針對「${c.profileTitle}（年繳預算 ${c.annualBudgetMan} 萬）」，當遭遇「${shock.title}（總財務衝擊 ${shock.totalLossMan} 萬）」時，貴組「${playerState.teamName}」所配置的保單組合成功理賠了 NT$ ${totalPayoutMan} 萬元，家庭風險抗壓指數為 ${finalScore} 分！\n\n`;
+      if (outOfPocketMan <= 30) {
+        defaultCommentary += `✅ 專家肯定：貴組徹底落實了「先保大再保小、看懂家庭責任訊號」的顧問精神，讓保戶在極端風險下幾乎零自掏腰包（僅差 ${outOfPocketMan} 萬），完美守住家庭資產！\n\n`;
+      } else {
+        defaultCommentary += `⚠️ 風險警示：貴組的配置讓保戶在風險發生時仍須自掏腰包高達 NT$ ${outOfPocketMan} 萬元！主要原因在於將預算錯置於非當務之急的險種，而低配了本案最關鍵的核心保障。請參考上方黃金配比重新調整。\n\n`;
+      }
+      defaultCommentary += `💡 核心健檢公式：${c.takeaway}`;
+
+      document.getElementById('aiDeepCommentaryBox').textContent = defaultCommentary;
+
+      document.getElementById('customerPersonasContainer').innerHTML = c.personas.map(p => `
+        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+          <div class="flex items-center gap-2 font-bold text-xs text-amber-300 mb-1">
+            <span class="text-base">${p.avatar}</span>
+            <span>${p.name}</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">「${p.quote}」</p>
+        </div>
+      `).join('');
+
+      latestReportData = {
+        caseObj: c,
+        weights: { ...weights },
+        pillarPayoutDetails,
+        totalPayoutMan,
+        outOfPocketMan,
+        finalScore,
+        gradeTitle,
+        aiCommentary: defaultCommentary
+      };
+
+      const panel = document.getElementById('resultPanel');
+      panel.classList.remove('hidden');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      playerState.completedCases[currentCaseIndex] = {
+        weights: { ...weights },
+        score: finalScore,
+        payoutMan: totalPayoutMan
+      };
+
+      updatePlayerHeaderStats();
+      renderCaseSelector();
+      await syncMyTeamToFirestore();
+      await appendUserHistoryEvent(`完成「${c.tag}」保單健檢壓力測試（抗壓指數 ${finalScore} 分，守護資產 ${totalPayoutMan} 萬）`);
+    }
+
+    function updatePlayerHeaderStats() {
+      const completedList = Object.values(playerState.completedCases);
+      const count = completedList.length;
+      const totalProtected = completedList.reduce((acc, cur) => acc + cur.payoutMan, 0);
+      const avgRes = count > 0 ? Math.round(completedList.reduce((acc, cur) => acc + cur.score, 0) / count) : 0;
+
+      document.getElementById('statTotalProtected').textContent = `NT$ ${totalProtected.toLocaleString()} 萬`;
+      document.getElementById('statAvgResilience').textContent = count > 0 ? `${avgRes} 分` : `-- 分`;
+      document.getElementById('statCompletedCases').textContent = count;
+    }
+
+    /******************************************************************
+     * 10. Gemini 3.8 Flash 顧問深度講評與匯出編排 Word (.doc) 建議書
+     ******************************************************************/
+    async function callGeminiTextWithFallback(promptText, apiKey) {
+      const models = ['gemini-3.8-flash', 'gemini-3.5-flash'];
+      for (const model of models) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawText) return rawText;
+        } catch (err) {
+          console.warn(`[Gemini Text Fallback] ${model} 例外:`, err);
+        }
+      }
+      throw new Error("All Gemini models failed");
+    }
+
+    async function generateAiDeepCommentary() {
+      if (!latestReportData) return;
+      const btn = document.getElementById('btnGenerateAiReport');
+      const box = document.getElementById('aiDeepCommentaryBox');
+      const c = latestReportData.caseObj;
+      const w = latestReportData.weights;
+
+      btn.disabled = true;
+      btn.innerHTML = `<span>⏳ gemini-3.8-flash 正在撰寫保單健檢總評與促成話術...</span>`;
+
+      const prompt = `
+        你現在是台灣頂尖保險行銷科技顧問 TONY 老師（楊文澤顧問）。
+        請針對通訊處組別「${playerState.teamName}」在以下家庭保單健檢沙盤中的配置結果，撰寫一份約 380 字、可直接印給客戶看的「專業保單健檢診斷與顧問促成話術建議」：
+        - 客戶背景：${c.profileTitle}（年繳預算 ${c.annualBudgetMan} 萬元）
+        - 三大前兆訊號：${c.signals.map(s => s.title).join('、')}
+        - 該組五大險種配比：實支醫療 ${w.med}%、重大傷病 ${w.ci}%、失能長照 ${w.ltc}%、定期壽險 ${w.life}%、儲蓄傳承 ${w.sav}%
+        - 顧問黃金配比：實支醫療 ${c.idealWeights.med}%、重大傷病 ${c.idealWeights.ci}%、失能長照 ${c.idealWeights.ltc}%、定期壽險 ${c.idealWeights.life}%、儲蓄傳承 ${c.idealWeights.sav}%
+        - 突發風險測試：${c.shockEvent.title}（總衝擊 ${c.shockEvent.totalLossMan} 萬，該組配置理賠 ${latestReportData.totalPayoutMan} 萬，自掏腰包缺口 ${latestReportData.outOfPocketMan} 萬）。
+
+        請依序包含以下三段（純文字，不需 JSON）：
+        1.【家庭風險缺口與保費配置診斷】
+        2.【面對客戶異議之黃金 SPIN 促成金句（提供 2 句業務員可直接開口說的話術）】
+        3.【保單升級落地三步驟】
+      `;
+
+      if (playerState.geminiApiKey) {
+        try {
+          const text = await callGeminiTextWithFallback(prompt, playerState.geminiApiKey);
+          box.textContent = text;
+          latestReportData.aiCommentary = text;
+          btn.disabled = false;
+          btn.innerHTML = `<span>✓ AI 顧問總評已更新 (可匯出 Word)</span>`;
+          return;
+        } catch (e) {
+          console.warn("改用內建顧問深度總評", e);
+        }
+      }
+
+      await new Promise(r => setTimeout(r, 600));
+      const fallbackText = `【1. 家庭風險缺口與保費配置診斷】
+針對「${c.profileTitle}」，貴組將年繳 ${c.annualBudgetMan} 萬元預算配置為：實支醫療 ${w.med}%、重大傷病 ${w.ci}%、失能長照 ${w.ltc}%、壽險責任 ${w.life}%、儲蓄傳承 ${w.sav}%。在模擬「${c.shockEvent.title}」的壓力測試下，成功創造了 NT$ ${latestReportData.totalPayoutMan} 萬元的理賠保護傘（家庭抗壓指數 ${latestReportData.finalScore} 分）。
+
+【2. 顧問式面談黃金 SPIN 促成金句（明天拜訪客戶直接這樣說）】
+- 提問挖痛點（Implication）：「大哥/大姐，我們買保險最怕的不是沒買，而是繳了十幾年保費，萬一明天醫生說要用每個月 15 萬的免住院標靶藥、或是休養兩年沒收入時，才發現舊保單或公司團保根本賠不到，那這 ${c.shockEvent.totalLossMan} 萬的缺口我們打算動用哪一筆資產？」
+- 解決方案促成（Need-payoff）：「我們今天不用增加您原本的預算，只要把保費重心移到最對味的『核心保障組合』，就能用每年 ${c.annualBudgetMan} 萬鎖住未來數百萬以上的極端黑天鵝風險！」
+
+【3. 保單升級落地三步驟】
+- Step 1：盤點既有保單與團險缺口，砍除高保費低保障之重複日額或低效儲蓄。
+- Step 2：依本案黃金配比優先補足「一次給付型重大傷病/失能」與「高雜費實支實付」。
+- Step 3：每年定期於家庭成員生日或健檢後進行一次動態保單微調。`;
+
+      box.textContent = fallbackText;
+      latestReportData.aiCommentary = fallbackText;
+      btn.disabled = false;
+      btn.innerHTML = `<span>✓ 顧問深度總評已生成 (可匯出 Word)</span>`;
+    }
+
+    function exportWordReport() {
+      if (!latestReportData) {
+        alert("請先點擊「啟動人生突發風險壓力測試」開獎後，再下載 Word 保單健檢建議書！");
+        return;
+      }
+
+      const d = latestReportData;
+      const c = d.caseObj;
+      const nowStr = new Date().toLocaleString('zh-TW');
+
+      const signalsRows = c.signals.map(s => `
+        <tr>
+          <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold; width:30%; background-color:#f8fafc;">${s.icon} ${s.type}<br>${s.title}</td>
+          <td style="border:1px solid #cbd5e1; padding:8px;">${s.detail}</td>
+        </tr>
+      `).join('');
+
+      const pillarsRows = PILLARS.map(p => {
+        const uW = d.weights[p.code];
+        const iW = c.idealWeights[p.code];
+        const feeMan = ((c.annualBudgetMan * uW) / 100).toFixed(1);
+        const payout = d.pillarPayoutDetails[p.code];
+        return `
+          <tr>
+            <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold;">${p.icon} ${p.name}</td>
+            <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; font-weight:bold; color:#1e40af;">${uW}% (年繳 ${feeMan}萬)</td>
+            <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; color:#047857; font-weight:bold;">${iW}%</td>
+            <td style="border:1px solid #cbd5e1; padding:8px; text-align:center; font-weight:bold;">NT$ ${payout} 萬元</td>
+            <td style="border:1px solid #cbd5e1; padding:8px; font-size:9.5pt;">${c.pillarExplain[p.code]}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const wordHtml = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset="utf-8">
+          <title>${c.profileTitle} - 家庭風險抗壓與保單健檢報告書</title>
+          <style>
+            body { font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif; color: #1e293b; line-height: 1.6; font-size: 11pt; }
+            h1 { font-size: 20pt; color: #0f172a; margin-bottom: 4pt; }
+            h2 { font-size: 13.5pt; color: #b45309; border-bottom: 2px solid #f59e0b; padding-bottom: 4pt; margin-top: 16pt; margin-bottom: 8pt; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 12pt; }
+            .takeaway-box { background-color: #fffbeb; border-left: 5px solid #f59e0b; padding: 10pt; margin-top: 12pt; }
+          </style>
+        </head>
+        <body>
+          <div style="border-bottom: 3px solid #0f172a; padding-bottom: 8pt; margin-bottom: 12pt;">
+            <div style="font-size: 10pt; color: #b45309; font-weight: bold;">金融保險業「顧問式保單健檢與風險壓力測試」｜VIP 客戶專屬家庭財務安全建議書</div>
+            <h1>《風險領航家》家庭風險抗壓與保單健檢報告書</h1>
+            <div style="font-size: 10.5pt; color: #475569;">
+              <b>規劃顧問團隊：</b>${playerState.teamName}｜<b>受檢家庭案例：</b>${c.profileTitle}｜<b>產出日期：</b>${nowStr}
+            </div>
+          </div>
+
+          <h2>壹、保戶家庭財務背景與三大風險前兆訊號（Signals）</h2>
+          <p><b>【家庭背景與年繳預算】：</b>${c.desc}</p>
+          <table>
+            <thead>
+              <tr style="background-color: #e2e8f0; color: #0f172a;">
+                <th style="border:1px solid #cbd5e1; padding:8px; text-align:left;">前兆訊號類別</th>
+                <th style="border:1px solid #cbd5e1; padding:8px; text-align:left;">潛在家庭財務破口與保障盲點</th>
+              </tr>
+            </thead>
+            <tbody>${signalsRows}</tbody>
+          </table>
+
+          <h2>貳、10 年後人生突發黑天鵝壓力測試結果</h2>
+          <p><b>【模擬風險事件】：</b><span style="color:#be123c; font-weight:bold;">${c.shockEvent.title}</span></p>
+          <p>${c.shockEvent.desc}</p>
+          <table>
+            <tr style="background-color: #0f172a; color: #ffffff; text-align:center; font-weight:bold;">
+              <td style="padding:8px; border:1px solid #334155;">風險事件總財務衝擊</td>
+              <td style="padding:8px; border:1px solid #334155;">保單成功理賠總額</td>
+              <td style="padding:8px; border:1px solid #334155;">家庭仍須自掏腰包缺口</td>
+              <td style="padding:8px; border:1px solid #334155;">家庭風險抗壓指數</td>
+            </tr>
+            <tr style="background-color: #f8fafc; text-align:center; font-size: 13pt; font-weight:bold;">
+              <td style="padding:10px; border:1px solid #cbd5e1; color:#be123c;">NT$ ${c.shockEvent.totalLossMan} 萬元</td>
+              <td style="padding:10px; border:1px solid #cbd5e1; color:#047857;">NT$ ${d.totalPayoutMan} 萬元</td>
+              <td style="padding:10px; border:1px solid #cbd5e1; color:#b45309;">NT$ ${d.outOfPocketMan} 萬元</td>
+              <td style="padding:10px; border:1px solid #cbd5e1; color:#0f172a;">${d.finalScore} 分 / 100</td>
+            </tr>
+          </table>
+
+          <h2>參、五大險種保費配置權重與理賠因果分析</h2>
+          <table>
+            <thead>
+              <tr style="background-color: #e2e8f0; color: #0f172a;">
+                <th style="border:1px solid #cbd5e1; padding:8px; width:18%;">險種維度</th>
+                <th style="border:1px solid #cbd5e1; padding:8px; width:15%;">貴組配置保費</th>
+                <th style="border:1px solid #cbd5e1; padding:8px; width:12%;">顧問建議配比</th>
+                <th style="border:1px solid #cbd5e1; padding:8px; width:15%;">本次模擬理賠金</th>
+                <th style="border:1px solid #cbd5e1; padding:8px; width:40%;">保障功能與財務因果說明</th>
+              </tr>
+            </thead>
+            <tbody>${pillarsRows}</tbody>
+          </table>
+
+          <h2>肆、從風險訊號到行動促成：4R 顧問式執行藍圖 (Action Playbook)</h2>
+          <table>
+            <tbody>
+              <tr>
+                <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold; width:25%; background-color:#ecfdf5; color:#065f46;">① Right Who (決策對象)</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${c.actionPlaybook.rightWho}</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold; background-color:#ecfdf5; color:#065f46;">② Right Time (黃金時機)</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${c.actionPlaybook.rightTime}</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold; background-color:#ecfdf5; color:#065f46;">③ Right Offer (核心方案)</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${c.actionPlaybook.rightOffer}</td>
+              </tr>
+              <tr>
+                <td style="border:1px solid #cbd5e1; padding:8px; font-weight:bold; background-color:#ecfdf5; color:#065f46;">④ Right SOP (面談步驟)</td>
+                <td style="border:1px solid #cbd5e1; padding:8px;">${c.actionPlaybook.rightSop}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>伍、AI 首席保險顧問深度講評與促成話術建議</h2>
+          <div style="background-color:#f8fafc; border:1px solid #cbd5e1; padding:12pt; white-space:pre-line;">${d.aiCommentary}</div>
+
+          <div class="takeaway-box">
+            <b>💡 TONY 老師（楊文澤顧問）保單健檢核心黃金公式：</b><br>
+            ${c.takeaway}
+          </div>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob(['\ufeff', wordHtml], { type: 'application/msword;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const safeName = c.profileTitle.replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, '').slice(0, 12);
+      a.download = `保單健檢與壓力測試報告_${playerState.teamName}_${safeName}.doc`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    /******************************************************************
+     * 11. AI 準保戶案例生成器 (Gemini 3.8 Flash)
+     ******************************************************************/
+    function fillSandboxPreset(profile, budget, pain) {
+      document.getElementById('customClientProfile').value = profile;
+      document.getElementById('customClientBudget').value = budget;
+      document.getElementById('customClientPain').value = pain;
+    }
+
+    async function callGeminiJsonWithFallback(promptText, apiKey) {
+      const models = ['gemini-3.8-flash', 'gemini-3.5-flash'];
+      for (const model of models) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: promptText }] }],
+              generationConfig: { responseMimeType: "application/json" }
+            })
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawText) return JSON.parse(rawText);
+        } catch (err) {
+          console.warn(`[Gemini JSON Fallback] ${model} 例外:`, err);
+        }
+      }
+      throw new Error("All Gemini models failed");
+    }
+
+    async function generateCustomCase() {
+      const profile = document.getElementById('customClientProfile').value.trim() || "38歲連鎖餐飲店老闆";
+      const budgetStr = document.getElementById('customClientBudget').value.trim() || "年繳預算 12 萬元";
+      const pain = document.getElementById('customClientPain').value.trim() || "偏好儲蓄險，忽略重大傷病與家庭責任壽險";
+      const shouldBroadcast = document.getElementById('broadcastCustomCheck').checked;
+      const btn = document.getElementById('generateCustomBtn');
+
+      const numMatch = budgetStr.match(/\d+/);
+      const budgetMan = numMatch ? Math.min(500, Math.max(3, parseInt(numMatch[0], 10))) : 12;
+
+      btn.disabled = true;
+      btn.innerHTML = `<span>⏳ gemini-3.8-flash 正在為「${profile}」生成保單健檢沙盤...</span>`;
+
+      let newCase = null;
+
+      if (playerState.geminiApiKey) {
+        const prompt = `
+          你是一位台灣頂尖壽險顧問培訓專家。請根據業務員輸入的準保戶背景，設計一道保單健檢沙盤關卡，嚴格輸出 JSON 格式：
+          準保戶：${profile}
+          預算與負債：${budgetStr}（年繳預算約 ${budgetMan} 萬）
+          投保盲點：${pain}
+          JSON 結構必須包含：
+          {
+            "tag": "Case 8・AI 準保戶實戰沙盒",
+            "profileTitle": "🌟 ${profile}",
+            "annualBudgetMan": ${budgetMan},
+            "desc": "100字內保戶背景與盲點描述",
+            "signals": [
+              {"icon": "🏠", "type": "家庭責任訊號", "title": "標題", "detail": "具體描述"},
+              {"icon": "🩺", "type": "健康與職業訊號", "title": "標題", "detail": "具體描述"},
+              {"icon": "📑", "type": "既有保單盲點訊號", "title": "標題", "detail": "具體描述"}
+            ],
+            "idealWeights": {"med": 25, "ci": 30, "ltc": 15, "life": 25, "sav": 5},
+            "shockEvent": {
+              "title": "⚡ 投保後第 6 年突發風險事件標題",
+              "desc": "詳細說明醫療自費與收入中斷金額",
+              "totalLossMan": 380,
+              "pillarMaxCover": {"med": 90, "ci": 220, "ltc": 60, "life": 120, "sav": 20}
+            },
+            "pillarExplain": {
+              "med": "實支醫療配置說明",
+              "ci": "重大傷病配置說明",
+              "ltc": "失能長照配置說明",
+              "life": "定期壽險配置說明",
+              "sav": "儲蓄理財配置說明"
+            },
+            "actionPlaybook": {
+              "rightWho": "關鍵決策者",
+              "rightTime": "最佳接觸時機",
+              "rightOffer": "核心保單組合建議",
+              "rightSop": "顧問面談四步驟"
+            },
+            "personas": [
+              {"avatar": "👨‍👩‍👧", "name": "保戶家屬", "quote": "理賠當下感謝心聲"},
+              {"avatar": "👨‍⚕️", "name": "主治醫師", "quote": "醫療自費觀點"},
+              {"avatar": "👔", "name": "處經理顧問", "quote": "簽單關鍵點評"}
+            ],
+            "takeaway": "一句話總結此類準保戶的健檢促成公式"
+          }
+        `;
+        try {
+          newCase = await callGeminiJsonWithFallback(prompt, playerState.geminiApiKey);
+          newCase.id = 8;
+          newCase.chapter = "ch2";
+        } catch (e) {
+          console.warn("改用內建生成器", e);
+        }
+      }
+
+      if (!newCase) {
+        await new Promise(r => setTimeout(r, 700));
+        newCase = {
+          id: 8,
+          chapter: "ch2",
+          tag: "Case 8・AI 準保戶實戰沙盒",
+          profileTitle: `🌟 ${profile}`,
+          annualBudgetMan: budgetMan,
+          desc: `準保戶為「${profile}」，目前狀況為「${budgetStr}」，最大投保盲點是：「${pain}」。請判讀以下三大訊號，為他配置最抗壓的五大險種組合！`,
+          signals: [
+            { icon: "🏦", type: "負債與現金流訊號", title: "家庭與事業固定支出龐大", detail: `面對「${budgetStr}」，一旦本人因重病或意外倒下超過半年，家庭與事業現金流將立即面臨斷鏈危機。` },
+            { icon: "🩺", type: "高壓生活體況訊號", title: "長期高工時與突發重症風險", detail: "35～50 歲為癌症、心肌梗塞與腦血管疾病年輕化高發期，新型自費標靶與微創醫材動輒 150～300 萬元。" },
+            { icon: "⚠️", type: "投保觀念盲點訊號", title: pain.slice(0, 22), detail: "保戶過度追求『沒事可以領回』的儲蓄觀念，卻忽略保險真正的核心價值是『用小錢鎖住承擔不起的極端負債』。" }
+          ],
+          idealWeights: { med: 25, ci: 35, ltc: 15, life: 20, sav: 5 },
+          shockEvent: {
+            title: `⚡ 投保後第 5 年：「${profile.slice(0, 10)}」突發急性重症需高階自費手術與長期休養`,
+            desc: "住院接受高階微創達文西手術（自費醫材 35 萬）、後續標靶與自費療程（185 萬），加上休養期間事業與家庭收入中斷損失（160 萬），總計造成 380 萬元財務衝擊！",
+            totalLossMan: 380,
+            pillarMaxCover: { med: 95, ci: 240, ltc: 70, life: 90, sav: 15 }
+          },
+          pillarExplain: {
+            med: "【實支實付醫療（建議 25%）】：直接覆蓋住院期間 35 萬的高階微創手術與自費醫材。",
+            ci: "【重大傷病一次金（建議 35% ⭐核心）】：確診即領取大額現金，解決標靶藥費與事業休養期間的現金流缺口。",
+            ltc: "【失能與長照（建議 15%）】：防範重症後遺症導致長期無法工作之每月生活扶助。",
+            life: "【定期壽險（建議 20%）】：鎖定貸款餘額與家人生活保障，實現債務隔離。",
+            sav: "【儲蓄理財（建議 ≤ 5%）】：在保障缺口補齊前，不宜將預算鎖入低保障槓桿之儲蓄險。"
+          },
+          actionPlaybook: {
+            rightWho: `${profile} 本人及其配偶（共同承擔家庭與事業財務決策者）。`,
+            rightTime: "年度報稅季、事業擴張貸款核准時、或同業親友發生醫療理賠案例討論時。",
+            rightOffer: `以年繳 ${budgetMan} 萬元打造「300萬重大傷病一次金 ＋ 雙實支實付 ＋ 貸款隔離定期壽險」防護專案。`,
+            rightSop: "先認同客戶想存錢的觀念 ➔ 透過沙盤壓力測試展示『萬一明天需要 380 萬醫藥費，要賣哪一間店或動用哪筆存款？』➔ 引導以 95% 預算鎖住高槓桿保障。"
+          },
+          personas: [
+            { avatar: "👨‍💼", name: "準保戶本人", quote: "以前總覺得買保險沒用到很虧，看到這個 380 萬風險壓力測試帳單才驚覺，原來重大傷病一次金才是保護我事業不倒的救命錢！" },
+            { avatar: "👩‍💼", name: "保戶配偶", quote: "好險顧問沒有順著他的意只賣儲蓄險，這份健檢報告把我們家的貸款風險跟醫療缺口講得一清二楚！" },
+            { avatar: "🏆", name: "通訊處處經理", quote: "用風險壓力測試取代傳統商品推銷，客戶自己就會看出保障缺口主動要求加保！" }
+          ],
+          takeaway: `【${profile} 專屬促成公式】針對「${pain}」，切忌跟客戶硬辯商品條款！直接用沙盤展示「380萬突發風險帳單 vs. 儲蓄險理賠金」的巨大落差，就能瞬間喚醒危機意識完成簽單。`
+        };
+      }
+
+      CASES[7] = newCase;
+
+      if (shouldBroadcast && db && isFirebaseConnected) {
+        try {
+          await setDoc(doc(db, 'ins_rooms', playerState.roomId), {
+            customCase: newCase,
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        } catch (e) {
+          console.warn("廣播自訂案例失敗：", e);
+        }
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = `<span>⚡ 立即以 gemini-3.8-flash 生成準保戶健檢沙盤</span>`;
+      setChapterFilter('all');
+      switchMode('player');
+      loadCase(7);
+    }
+
+    /******************************************************************
+     * 12. 講師戰情室：資深主管 vs 新銳業務 5大險種配置統計與排行榜
+     ******************************************************************/
+    function renderWarRoomCharts(teamsList) {
+      const effectiveTeams = teamsList.length > 0 ? teamsList : [{
+        id: currentUserUid,
+        teamName: playerState.teamName,
+        role: playerState.role,
+        totalProtectedMan: 0,
+        avgResilience: 0,
+        completedCount: Object.keys(playerState.completedCases).length,
+        latestWeights: weights,
+        completedCases: playerState.completedCases
+      }];
+
+      const mgrTeams = effectiveTeams.filter(t => t.role === 'manager');
+      const advTeams = effectiveTeams.filter(t => t.role === 'advisor');
+
+      document.getElementById('mgrGroupCountBadge').textContent = `${mgrTeams.length} 組`;
+      document.getElementById('advGroupCountBadge').textContent = `${advTeams.length} 組`;
+
+      const calcAvgFive = (group) => {
+        if (group.length === 0) return null;
+        const sums = { med: 0, ci: 0, ltc: 0, life: 0, sav: 0 };
+        group.forEach(t => {
+          const w = t.completedCases?.[currentCaseIndex]?.weights || t.latestWeights || { med: 20, ci: 20, ltc: 20, life: 20, sav: 20 };
+          PILLARS.forEach(p => { sums[p.code] += (w[p.code] ?? 0); });
+        });
+        const avg = {};
+        PILLARS.forEach(p => { avg[p.code] = Math.round(sums[p.code] / group.length); });
+        return avg;
+      };
+
+      const mgrAvg = calcAvgFive(mgrTeams);
+      const advAvg = calcAvgFive(advTeams);
+      const ideal = CASES[currentCaseIndex].idealWeights;
+
+      const renderFiveBars = (data, emptyHint) => {
+        if (!data) return `<div class="text-xs text-slate-500 py-6 text-center">${emptyHint}</div>`;
+        return PILLARS.map(p => {
+          const val = data[p.code];
+          const idealVal = ideal[p.code];
+          return `
+            <div class="text-xs">
+              <div class="flex justify-between mb-1">
+                <span>${p.icon} ${p.name} <span class="text-[10px] text-slate-500">(黃金標準 ${idealVal}%)</span></span>
+                <span class="font-mono font-bold ${p.color}">${val}%</span>
+              </div>
+              <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full ${p.barColor} transition-all duration-500" style="width:${val}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      };
+
+      document.getElementById('chartManager').innerHTML = renderFiveBars(mgrAvg, '尚無資深主管組加入（可點擊右上角塞入模擬隊伍）');
+      document.getElementById('chartAdvisor').innerHTML = renderFiveBars(advAvg, '尚無新銳業務組加入（可點擊右上角塞入模擬隊伍）');
+
+      const sorted = [...effectiveTeams].sort((a, b) => (b.totalProtectedMan || 0) - (a.totalProtectedMan || 0));
+
+      document.getElementById('leaderboardBody').innerHTML = sorted.map((t, i) => {
+        const isMe = t.id === currentUserUid;
+        const w = t.completedCases?.[currentCaseIndex]?.weights || t.latestWeights || { med: 20, ci: 20, ltc: 20, life: 20, sav: 20 };
+        return `
+          <tr class="${isMe ? 'bg-amber-500/15 font-semibold' : 'hover:bg-slate-800/40'} transition">
+            <td class="py-3 px-3 font-mono">${i === 0 ? '🥇 1' : i === 1 ? '🥈 2' : i === 2 ? '🥉 3' : i + 1}</td>
+            <td class="py-3 px-3 text-white">${t.teamName} ${isMe ? '<span class="text-[11px] px-1.5 py-0.5 rounded bg-amber-500/30 text-amber-200 ml-1">本機</span>' : ''}</td>
+            <td class="py-3 px-3 text-xs text-slate-300">${t.role === 'manager' ? '👔 資深主管組' : '🚀 新銳業務組'}</td>
+            <td class="py-3 px-3 font-mono text-xs text-amber-300">${w.med}% / ${w.ci}% / ${w.ltc}% / ${w.life}% / ${w.sav}%</td>
+            <td class="py-3 px-3 font-mono text-xs text-indigo-300">${t.completedCount || 0} / 8</td>
+            <td class="py-3 px-3 font-mono text-emerald-400">${t.avgResilience ? t.avgResilience + ' 分' : '--'}</td>
+            <td class="py-3 px-3 font-mono text-right text-white font-bold">NT$ ${(t.totalProtectedMan || 0).toLocaleString()} 萬</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function seedDemoTeamsToFirestore() {
+      const demoList = [
+        { id: "demo_mgr_1", teamName: "松江通訊處：MDRT百萬圓桌隊", role: "manager", latestWeights: { med: 30, ci: 25, ltc: 35, life: 0, sav: 10 }, completedCount: 6, avgResilience: 96, totalProtectedMan: 2680 },
+        { id: "demo_mgr_2", teamName: "敦南通訊處：家族傳承顧問團", role: "manager", latestWeights: { med: 25, ci: 30, ltc: 25, life: 15, sav: 5 }, completedCount: 5, avgResilience: 89, totalProtectedMan: 2210 },
+        { id: "demo_adv_1", teamName: "台中新銳：數位保單健檢戰隊", role: "advisor", latestWeights: { med: 40, ci: 35, ltc: 20, life: 0, sav: 5 }, completedCount: 6, avgResilience: 92, totalProtectedMan: 2495 },
+        { id: "demo_adv_2", teamName: "高雄專案班：熱血增員新星隊", role: "advisor", latestWeights: { med: 40, ci: 15, ltc: 10, life: 5, sav: 30 }, completedCount: 4, avgResilience: 68, totalProtectedMan: 1290 },
+        { id: "demo_mgr_3", teamName: "板橋營業處：傳統儲蓄老將隊", role: "manager", latestWeights: { med: 15, ci: 10, ltc: 5, life: 10, sav: 60 }, completedCount: 4, avgResilience: 54, totalProtectedMan: 880 }
+      ];
+
+      if (db && isFirebaseConnected) {
+        for (const item of demoList) {
+          await setDoc(doc(db, 'ins_rooms', playerState.roomId, 'teams', item.id), {
+            ...item,
+            updatedAt: serverTimestamp()
+          });
+        }
+      } else {
+        cloudTeamsCache = demoList;
+        renderWarRoomCharts(cloudTeamsCache);
+        renderQrModalTeamList(cloudTeamsCache);
+      }
+    }
+
+    async function clearRoomTeams() {
+      if (!db || !isFirebaseConnected) {
+        cloudTeamsCache = [];
+        renderWarRoomCharts([]);
+        renderQrModalTeamList([]);
+        return;
+      }
+      const snap = await getDocs(collection(db, 'ins_rooms', playerState.roomId, 'teams'));
+      const deletions = [];
+      snap.forEach(d => deletions.push(deleteDoc(doc(db, 'ins_rooms', playerState.roomId, 'teams', d.id))));
+      await Promise.all(deletions);
+      playerState.completedCases = {};
+      updatePlayerHeaderStats();
+      await syncMyTeamToFirestore();
+    }
+
+    /******************************************************************
+     * 13. 設定視窗控制
+     ******************************************************************/
+    function toggleConfigModal() {
+      document.getElementById('configModal').classList.toggle('hidden');
+    }
+
+    async function saveConfig() {
+      const name = document.getElementById('inputTeamName').value.trim() || "第一通訊處：頂尖財務顧問隊";
+      const role = document.getElementById('inputRole').value;
+      const room = document.getElementById('inputRoomId').value.trim() || "INS-2026";
+      const key = document.getElementById('inputGeminiKey').value.trim();
+
+      const roomChanged = room !== playerState.roomId;
+
+      playerState.teamName = name;
+      playerState.role = role;
+      playerState.roomId = room;
+      playerState.geminiApiKey = key;
+
+      localStorage.setItem('ins_teamName', name);
+      localStorage.setItem('ins_role', role);
+      localStorage.setItem('ins_roomId', room);
+      localStorage.setItem('tp_geminiKey', key);
+
+      applyHeaderProfileUI();
+      toggleConfigModal();
+
+      if (roomChanged && isFirebaseConnected) {
+        subscribeToRoomData(room);
+      }
+      await syncMyTeamToFirestore();
+    }
+
+    window.app = {
+      switchMode,
+      setChapterFilter,
+      loadCase,
+      goToNextCase,
+      handleSliderChange,
+      setFiveWeights,
+      applyCaseBestPreset,
+      submitDecision,
+      generateAiDeepCommentary,
+      exportWordReport,
+      fillSandboxPreset,
+      generateCustomCase,
+      seedDemoTeamsToFirestore,
+      clearRoomTeams,
+      toggleConfigModal,
+      saveConfig,
+      toggleQrModal,
+      updateQrCodeImage,
+      copyJoinLink,
+      startClassroomTimer,
+      stopClassroomTimer,
+      toggleSoundMute,
+      // 新增會員系統與管理後台 API
+      switchAuthTab,
+      togglePasswordVisibility,
+      handleEmailRegister,
+      handleEmailLogin,
+      handleGoogleLogin,
+      handleForgotPassword,
+      handleLogout,
+      toggleAdminModal,
+      toggleCreatorModal,
+      toggleUserRole,
+      deleteUserRecord,
+      viewMemberHistory,
+      exportMembersCSV,
+      generateAdminAiReport,
+      exportAdminAiWord
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initUI();
+      initFirebase();
+    });
+  </script>
+</body>
+</html>
