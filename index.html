@@ -856,7 +856,7 @@
             <!-- 漸進式揭露 3：AI 首席保險顧問深度講評 -->
             <details class="clean-disclosure p-5" open>
               <summary class="flex items-center justify-between gap-2 font-black text-sm md:text-base text-indigo-300">
-                <span>🤖 參、AI 首席核保與財務顧問個人化講評 (Gemini Flash)</span>
+                <span>🤖 參、AI 首席核保與財務顧問個人化講評 (gemini-4-hydrogen)</span>
                 <span class="text-xs text-slate-400 font-normal">點擊收合 / 展開 ▾</span>
               </summary>
               <div class="mt-4 pt-4 border-t border-slate-800 space-y-3">
@@ -905,7 +905,7 @@
         <div class="max-w-4xl">
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
-              AI Client Simulator・Gemini 3.8 Flash 驅動
+              AI Client Simulator・gemini-4-hydrogen 驅動
             </span>
             <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
               支援同步廣播至全班第 8 案壓軸演練
@@ -913,7 +913,7 @@
           </div>
           <h2 class="text-2xl font-black text-white mt-2">✨ AI 準保戶背景生成器（真實客戶案例模擬 × 雲端廣播）</h2>
           <p class="text-sm text-slate-300 mt-1">
-            請現場業務同仁輸入本週準備去拜訪的真實準保戶背景（職業年齡、家庭負債與目前投保盲點），系統將透過 <code class="text-amber-300 font-mono">gemini-3.8-flash</code> 即時生成包含「3大風險前兆訊號」、「5大險種黃金配比」、「10年後突發風險壓力測試事件」與「4R 促成話術」的專屬沙盤！
+            請現場業務同仁輸入本週準備去拜訪的真實準保戶背景（職業年齡、家庭負債與目前投保盲點），系統將透過 <code class="text-amber-300 font-mono">gemini-4-hydrogen</code> 即時生成包含「3大風險前兆訊號」、「5大險種黃金配比」、「10年後突發風險壓力測試事件」與「4R 促成話術」的專屬沙盤！
           </p>
         </div>
 
@@ -948,7 +948,7 @@
             <span>同時將此 AI 準保戶案例廣播至全班 Case 8（讓全通訊處一起幫這位同仁設計保單組合）</span>
           </label>
           <button id="generateCustomBtn" onclick="window.app.generateCustomCase()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/25 transition flex items-center gap-2">
-            <span>⚡ 立即以 gemini-3.8-flash 生成準保戶健檢沙盤</span>
+            <span>⚡ 立即以 gemini-4-hydrogen 生成準保戶健檢沙盤</span>
           </button>
         </div>
       </div>
@@ -1273,7 +1273,7 @@
   <div id="configModal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="glass-card max-w-lg w-full rounded-2xl p-6 border border-slate-700 space-y-5">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 class="text-lg font-black text-white">⚙️ 通訊處組別與 Gemini 3.8 API 設定</h3>
+        <h3 class="text-lg font-black text-white">⚙️ 通訊處組別與 gemini-4-hydrogen API 設定</h3>
         <button onclick="window.app.toggleConfigModal()" class="text-slate-400 hover:text-white text-xl">&times;</button>
       </div>
 
@@ -1301,7 +1301,7 @@
           <label class="block text-xs text-amber-300 font-semibold mb-1">🔑 Google Gemini API Key（用於「AI 準保戶生成」與「AI 健檢講評」）</label>
           <input id="inputGeminiKey" type="password" placeholder="貼上您的 AIzaSy... 金鑰 (將儲存於本機瀏覽器)" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-xs">
           <p class="text-[11px] text-slate-400 mt-1">
-            預設優先呼叫 <code class="text-emerald-400 font-mono">gemini-3.8-flash</code>，並內建指數退避與 <code class="text-amber-400 font-mono">gemini-3.5-flash</code> 自動降級保護。
+            預設優先呼叫 <code class="text-emerald-400 font-mono">gemini-4-hydrogen</code>，並內建指數退避與 <code class="text-amber-400 font-mono">gemini-3-flash-preview</code> 自動降級保護。
           </p>
         </div>
       </div>
@@ -3176,10 +3176,10 @@
     }
 
     /******************************************************************
-     * 10. Gemini 3.8 Flash 顧問深度講評與匯出編排 Word (.doc) 建議書
+     * 10. gemini-4-hydrogen 顧問深度講評與匯出編排 Word (.doc) 建議書
      ******************************************************************/
     async function callGeminiTextWithFallback(promptText, apiKey) {
-      const models = ['gemini-3.8-flash', 'gemini-3.5-flash'];
+      const models = ['gemini-4-hydrogen', 'gemini-3-flash-preview'];
       for (const model of models) {
         try {
           const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -3207,7 +3207,7 @@
       const w = latestReportData.weights;
 
       btn.disabled = true;
-      btn.innerHTML = `<span>⏳ gemini-3.8-flash 正在撰寫保單健檢總評與促成話術...</span>`;
+      btn.innerHTML = `<span>⏳ gemini-4-hydrogen 正在撰寫保單健檢總評與促成話術...</span>`;
 
       const prompt = `
         你現在是台灣頂尖保險行銷科技顧問 TONY 老師（楊文澤顧問）。
@@ -3401,7 +3401,7 @@
     }
 
     /******************************************************************
-     * 11. AI 準保戶案例生成器 (Gemini 3.8 Flash)
+     * 11. AI 準保戶案例生成器 (gemini-4-hydrogen)
      ******************************************************************/
     function fillSandboxPreset(profile, budget, pain) {
       document.getElementById('customClientProfile').value = profile;
@@ -3410,7 +3410,7 @@
     }
 
     async function callGeminiJsonWithFallback(promptText, apiKey) {
-      const models = ['gemini-3.8-flash', 'gemini-3.5-flash'];
+      const models = ['gemini-4-hydrogen', 'gemini-3-flash-preview'];
       for (const model of models) {
         try {
           const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
@@ -3444,7 +3444,7 @@
       const budgetMan = numMatch ? Math.min(500, Math.max(3, parseInt(numMatch[0], 10))) : 12;
 
       btn.disabled = true;
-      btn.innerHTML = `<span>⏳ gemini-3.8-flash 正在為「${profile}」生成保單健檢沙盤...</span>`;
+      btn.innerHTML = `<span>⏳ gemini-4-hydrogen 正在為「${profile}」生成保單健檢沙盤...</span>`;
 
       let newCase = null;
 
@@ -3559,7 +3559,7 @@
       }
 
       btn.disabled = false;
-      btn.innerHTML = `<span>⚡ 立即以 gemini-3.8-flash 生成準保戶健檢沙盤</span>`;
+      btn.innerHTML = `<span>⚡ 立即以 gemini-4-hydrogen 生成準保戶健檢沙盤</span>`;
       setChapterFilter('all');
       switchMode('player');
       loadCase(7);
